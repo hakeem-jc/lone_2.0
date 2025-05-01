@@ -1,5 +1,6 @@
 "use client"
 import { FC, useState } from "react";
+import Button from "@/app/components/Button";
 
 const Header: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,12 +16,9 @@ const Header: FC = () => {
           <img src="./logo.png" className="h-14" alt="Lone Logo" />
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <button
-            type="button"
-            className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
-          >
-            Get started
-          </button>
+         
+          <Button text="Get Started" color="blue" size="small"  icon="forward"/>
+
           <button
             onClick={toggleNavbar}
             type="button"
