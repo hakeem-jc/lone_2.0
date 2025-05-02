@@ -9,8 +9,8 @@ type ButtonProps = {
 };
 
 const colors: Record<string, string> = {
-  blue:  'bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 cursor-pointer',
-  black:  'bg-[#212121] hover:bg-[#252525] focus:ring-blue-800 cursor-pointer',
+  blue:  'bg-blue-600 hover:bg-blue-700 focus:outline-hidden cursor-pointer',
+  black:  'bg-[#212121] hover:bg-[#252525] focus:outline-hidden cursor-pointer',
 };
 
 const sizes: Record<string, string> = {
@@ -66,7 +66,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type="button"
       onClick={onClick}
-      className={`font-medium rounded-lg text-center inline-flex items-center focus:ring-4 focus:outline-none ${colors[color]} ${sizes[size]}`}
+      className={`font-medium rounded-lg text-center inline-flex items-center ${colors[color]} ${sizes[size]}`}
     >
       {text}
       {icon && icons[icon]}
