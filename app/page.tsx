@@ -10,32 +10,26 @@ export default function Home() {
         <h1 className="text-center mb-4 text-lg">Component Library</h1>
 
         <div>
-            <h2 className="mb-2">Buttons</h2>
-            <div className="flex gap-4 ">
-              <Button text="Choose Plan" color="blue" size="small" icon="forward" />
-              <Button text="Expand" color="black" size="wide" icon="downward" />
-            </div>
+          <h2 className="mb-2">Buttons</h2>
+          <div className="flex gap-4 ">
+            <Button
+              text="Choose Plan"
+              color="blue"
+              size="small"
+              icon="forward"
+            />
+            <Button text="Expand" color="black" size="wide" icon="downward" />
+          </div>
         </div>
 
         <div>
-            <h2 className="mb-2">Accordions</h2>
-            <div className="flex gap-4 ">
-    
-            </div>
+          <h2 className="mb-2">Cards</h2>
+          <div className="flex gap-4 "></div>
         </div>
 
         <div>
-            <h2 className="mb-2">Cards</h2>
-            <div className="flex gap-4 ">
-    
-            </div>
-        </div>
-
-        <div>
-            <h2 className="mb-2">Slider</h2>
-            <div className="flex gap-4 ">
-    
-            </div>
+          <h2 className="mb-2">Slider</h2>
+          <div className="flex gap-4 "></div>
         </div>
       </section>
     </main>
