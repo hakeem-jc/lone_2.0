@@ -1,5 +1,6 @@
 import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
+import Card from "@/app/components/ui/Card";
 
 export default function Home() {
   return (
@@ -24,7 +25,12 @@ export default function Home() {
 
         <div>
           <h2 className="mb-2">Cards</h2>
-          <div className="flex gap-4 "></div>
+          <div className="flex gap-4 ">
+            <Card
+              title="Payment Time: Instant"
+              description="Once you’re approved and you accept a loan, you’ll have the money in your account in seconds."
+            />
+          </div>
         </div>
 
         <div>
