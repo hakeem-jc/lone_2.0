@@ -1,6 +1,7 @@
 import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
 import Card from "@/app/components/ui/Card";
+import Slider from "@/app/components/ui/Slider";
 
 export default function Home() {
   return (
@@ -35,7 +36,9 @@ export default function Home() {
 
         <div>
           <h2 className="mb-2">Slider</h2>
-          <div className="flex gap-4 "></div>
+          <div className="flex gap-4 ">
+            <Slider />
+          </div>
         </div>
       </section>
     </main>
