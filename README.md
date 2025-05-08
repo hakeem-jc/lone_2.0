@@ -10,7 +10,7 @@
 Overview
 This MVP is a modern web-based lending platform that allows users to create an account, submit personal and financial details for underwriting, receive a mock credit report and KYC assessment, and ultimately get approved for a loan. Built with Next.js 15 and TypeScript, the app prioritizes scalability, performance, and user experience.
 
-Core Features
+> Core Features
 
 </br>
 
@@ -28,7 +28,7 @@ Core Features
 
 ### [→ More from me](https://www.hakeemclarke.com/)
 
-## Getting Started
+## App Setup
 
 Just install and run the development server:
 
