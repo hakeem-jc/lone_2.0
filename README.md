@@ -26,9 +26,7 @@ This MVP is a modern web-based lending platform that allows users to create an a
 
 🌍 Internationalization (i18n): Full localization support for English and Spanish via next-intl.
 
-### [→ More from me](https://www.hakeemclarke.com/)
-
-## App Setup
+> App Setup
 
 Just install and run the development server:
 
@@ -37,3 +35,5 @@ npm install
 npm run dev
 ```
 Then view in your browser at http://localhost:3000/
+
+### [→ More from me](https://www.hakeemclarke.com/)
