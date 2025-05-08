@@ -34,12 +34,6 @@ Just install and run the development server:
 
 ```bash
 npm install
-
-then
-
 npm run dev
-
-then 
-
-View in Browser at http://localhost:3000/
 ```
+Then view in your browser at http://localhost:3000/
