@@ -1,5 +1,6 @@
 import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
+import Footer from "@/app/components/Footer";
 
 export default function Home() {
   return (
@@ -8,7 +9,7 @@ export default function Home() {
       <section className="flex justify-center">
         <section className="flex flex-col gap-6 w-4/5 h-96 justify-around">
           <h1 className="text-4xl text-center mt-8">More Money, Less Problems</h1>
-          <p className="text-center">
+          <p className="text-center text-lg">
             Need cash fast? We've got you covered. Our digital lending app
             provides quick, hassle-free loans to help you manage unexpected
             expenses or seize sudden opportunities.
@@ -22,7 +23,11 @@ export default function Home() {
             />
           </div>
         </section>
+        <section className="flex"></section>
+        <section className="flex"></section>
+        
       </section>
+      <Footer />
     </main>
   );
 }

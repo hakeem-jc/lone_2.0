@@ -2,6 +2,7 @@ import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
 import Card from "@/app/components/ui/Card";
 import Slider from "@/app/components/ui/Slider";
+import Footer from "@/app/components/Footer";
 
 const Page = () => {
   return (
@@ -40,6 +41,8 @@ const Page = () => {
             <Slider />
           </div>
         </div>
+
+        <Footer />
       </section>
     </main>
   );
