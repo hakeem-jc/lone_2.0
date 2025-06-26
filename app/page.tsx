@@ -32,22 +32,43 @@ export default function Home() {
           </h1>
           <p className="text-center">Here's How it Works</p>
 
-          <div className="flex w-full mt-16">
-            <div className="w-1/2">
-              <img
-                src="/placeholder.jpg"
-                alt=""
-                className="h-64 rounded-lg m-auto"
-              />
+          <section className="flex flex-col gap-12 items-center justify-center px-6">
+            <div className="flex flex-col md:flex-row items-center w-full max-w-6xl gap-8">
+              <div className="w-full md:w-1/2 flex justify-center">
+                <img
+                  src="/placeholder.jpg"
+                  alt="Placeholder"
+                  className="h-64 w-auto max-w-full rounded-lg"
+                />
+              </div>
+              <div className="w-1/2 text-center md:text-left">
+                <p className="text-2xl font-semibold mb-4">Apply in Minutes</p>
+                <p className="text-gray-500">
+                  Our streamlined application process takes just a few taps. No
+                  paperwork, no waiting in lines.
+                </p>
+              </div>
             </div>
-            <div className="w-1/2">
-              <p className="text-xl mb-4">Apply in Minutes</p>
-              <p className="text-gray-400">
-                Our streamlined application process takes just a few taps. No
-                paperwork, no waiting in lines.
-              </p>
+
+            <div className="flex flex-col md:flex-row-reverse items-center w-full max-w-6xl gap-8">
+              <div className="w-full md:w-1/2 flex justify-center">
+                <img
+                  src="/placeholder.jpg"
+                  alt="Placeholder"
+                  className="h-64 w-auto max-w-full rounded-lg"
+                />
+              </div>
+              <div className="w-1/2 text-center md:text-left">
+                <p className="text-2xl font-semibold mb-4">
+                  Instant Decision
+                </p>
+                <p className="text-gray-500">
+                  Our advanced AI evaluates your application in real-time,
+                  providing an immediate lending decision.
+                </p>
+              </div>
             </div>
-          </div>
+          </section>
         </section>
         <section className="flex"></section>
       </section>
