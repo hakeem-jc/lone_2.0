@@ -2,6 +2,7 @@ import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
 import Card from "@/app/components/ui/Card";
 import Slider from "@/app/components/ui/Slider";
+import Stepper from "@/app/components/ui/Stepper";
 import Footer from "@/app/components/Footer";
 
 const Page = () => {
@@ -40,6 +41,29 @@ const Page = () => {
           <div className="flex gap-4 ">
             <Slider />
           </div>
+        </div>
+
+        <div>
+          <div className="mb-2">Stepper</div>
+          <Stepper
+            steps={[
+              {
+                title: "User info",
+                description: "Step details here",
+                completed: true,
+              },
+              {
+                title: "Company info",
+                description: "Step details here",
+                completed: false,
+              },
+              {
+                title: "Payment info",
+                description: "Step details here",
+                completed: false,
+              },
+            ]}
+          />
         </div>
 
         <Footer />
