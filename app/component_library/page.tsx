@@ -1,3 +1,4 @@
+"use client";
 import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
 import Card from "@/app/components/ui/Card";
@@ -133,9 +134,88 @@ const Page = () => {
           />
 
           <TimelineStepper steps={steps} />
-
         </div>
 
+        <div className="max-w-3xl">
+          <form>
+            <h3 className="mb-4 text-lg font-medium leading-none text-white">
+              Forms
+            </h3>
+            <div className="grid gap-4 mb-4 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="username.example"
+                  autoComplete="off"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="name@company.com"
+                  autoComplete="off"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="•••••••••"
+                  autoComplete="off"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="confirm-password"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Confirm password
+                </label>
+                <input
+                  type="password"
+                  name="confirm-password"
+                  id="confirm-password"
+                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="•••••••••"
+                  autoComplete="off"
+                />
+              </div>
+            </div>
+            
+            <button
+              type="submit"
+              className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              Next Step: Payment Info
+            </button>
+          </form>
+        </div>
 
         <Footer />
       </section>
