@@ -12,6 +12,23 @@ type TimelineStepperProps = {
 };
 
 const TimelineStepper: React.FC<TimelineStepperProps> = ({ steps }) => {
+  const completed_icon = (
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 16 12"
+    >
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M1 5.917 5.724 10.5 15 1.5"
+      />
+    </svg>
+  );
+
   return (
     <ol className="ml-12 relative border-s border-gray-700 text-gray-400">
       {steps.map((step, index) => (
@@ -29,7 +46,7 @@ const TimelineStepper: React.FC<TimelineStepperProps> = ({ steps }) => {
                 step.completed ? "text-green-400" : "text-gray-400"
               }`}
             >
-              {step.icon}
+              {step.completed ? completed_icon : step.icon}
             </span>
           </span>
           <h3 className="font-medium leading-tight">{step.title}</h3>
