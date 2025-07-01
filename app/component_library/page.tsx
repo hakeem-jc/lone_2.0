@@ -136,86 +136,121 @@ const Page = () => {
           <TimelineStepper steps={steps} />
         </div>
 
-        <div className="max-w-3xl">
-          <form>
-            <h3 className="mb-4 text-lg font-medium leading-none text-white">
-              Forms
-            </h3>
-            <div className="grid gap-4 mb-4 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="username"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
-                  Username
-                </label>
+        <form className="max-w-3xl">
+          <h3 className="mb-4 text-lg font-medium leading-none text-white">
+            Forms
+          </h3>
+          <div className="grid gap-4 mb-4 sm:grid-cols-2">
+            <div>
+              <label
+                htmlFor="username"
+                className="block mb-2 text-sm font-medium text-white"
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="username.example"
+                autoComplete="off"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-white"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="name@company.com"
+                autoComplete="off"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="password"
+                className="block mb-2 text-sm font-medium text-white"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="•••••••••"
+                autoComplete="off"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="confirm-password"
+                className="block mb-2 text-sm font-medium text-white"
+              >
+                Confirm password
+              </label>
+              <input
+                type="password"
+                name="confirm-password"
+                id="confirm-password"
+                className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="•••••••••"
+                autoComplete="off"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="phone-input"
+                className="block mb-2 text-sm font-medium text-white"
+              >
+                Phone number
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                  <svg
+                    className="w-4 h-4 text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 19 18"
+                  >
+                    <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
+                  </svg>
+                </div>
                 <input
                   type="text"
-                  name="username"
-                  id="username"
-                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="username.example"
-                  autoComplete="off"
+                  id="phone-input"
+                  aria-describedby="helper-text-explanation"
+                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  placeholder="123-456-7890"
+                  required
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="name@company.com"
-                  autoComplete="off"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="•••••••••"
-                  autoComplete="off"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="confirm-password"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
-                  Confirm password
-                </label>
-                <input
-                  type="password"
-                  name="confirm-password"
-                  id="confirm-password"
-                  className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="•••••••••"
-                  autoComplete="off"
-                />
-              </div>
+              <p
+                id="helper-text-explanation"
+                className="mt-2 text-sm text-gray-400"
+              >
+                Select a phone number that matches the format.
+              </p>
             </div>
-            
-            <button
-              type="submit"
-              className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            >
-              Next Step: Payment Info
-            </button>
-          </form>
-        </div>
+          </div>
+
+          <button
+            type="submit"
+            className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            Next Step: Payment Info
+          </button>
+        </form>
 
         <Footer />
       </section>
