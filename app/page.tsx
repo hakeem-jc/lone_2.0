@@ -1,3 +1,5 @@
+"use client";
+import { useRouter } from "next/navigation";
 import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
 import Slider from "@/app/components/ui/Slider";
@@ -57,6 +59,8 @@ const items: SectionItem[] = [
 ];
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <main className="pt-24">
       <Header />
@@ -75,12 +79,19 @@ export default function Home() {
                 color="blue"
                 size="small"
                 icon="downward"
+                onClick={() => {
+                  const el = document.getElementById("info-section");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
               />
             </div>
           </div>
         </section>
 
-        <section className="flex flex-col items-center gap-12 bg-secondary rounded-4xl mt-8">
+        <section
+          id="info-section"
+          className="flex flex-col items-center gap-12 bg-secondary rounded-4xl mt-8 scroll-mt-24"
+        >
           <h1 className="text-3xl text-center mt-16">
             Your Next Pay Day Is Today
           </h1>
@@ -125,11 +136,18 @@ export default function Home() {
               color="blue"
               size="small"
               icon="downward"
+              onClick={() => {
+                const el = document.getElementById("rates-section");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
             />
           </div>
         </section>
 
-        <section className="flex flex-col items-center justify-center px-4 py-30">
+        <section
+          id="rates-section"
+          className="flex flex-col items-center justify-center px-4 py-30"
+        >
           <div className="flex flex-col gap-12 items-center text-center max-w-2xl">
             <h1 className="text-4xl">Take a Sneak Peak at Our Rates</h1>
             <div className="w-8/12">
@@ -159,6 +177,7 @@ export default function Home() {
               color="black"
               size="wide"
               icon="forward"
+              onClick={() => router.push("/onboarding")}
             />
           </div>
         </section>

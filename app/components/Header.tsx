@@ -1,8 +1,10 @@
-"use client"
+"use client";
 import { FC, useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/Button";
 
 const Header: FC = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -12,12 +14,20 @@ const Header: FC = () => {
   return (
     <nav className="bg-secondary fixed w-full z-20 top-0 start-0 shadow-[0px_4px_6px_0px_rgba(0,_0,_0,_0.1)]">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="./" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <a
+          href="./"
+          className="flex items-center space-x-3 rtl:space-x-reverse"
+        >
           <img src="./logo.png" className="h-14" alt="Lone Logo" />
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-         
-          <Button text="Get Started" color="blue" size="small"  icon="forward"/>
+          <Button
+            text="Get Started"
+            color="blue"
+            size="small"
+            icon="forward"
+            onClick={() => router.push("/onboarding")}
+          />
 
           <button
             onClick={toggleNavbar}
