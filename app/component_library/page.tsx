@@ -1,4 +1,6 @@
 "use client";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
 import Card from "@/app/components/ui/Card";
@@ -7,7 +9,24 @@ import Stepper from "@/app/components/ui/Stepper";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Footer from "@/app/components/Footer";
 
+type FormValues = {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phoneNumber: string;
+  toggle: boolean;
+  housingStatus: string;
+};
+
 const Page = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    mode: "onBlur",
+  });
   const steps = [
     {
       title: "Personal Info",
@@ -74,6 +93,10 @@ const Page = () => {
     },
   ];
 
+  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
+    console.log(data);
+  };
+
   return (
     <main className="pt-24">
       <Header />
@@ -136,7 +159,7 @@ const Page = () => {
           <TimelineStepper steps={steps} />
         </div>
 
-        <form className="max-w-3xl">
+        <form className="max-w-3xl" onSubmit={handleSubmit(onSubmit)}>
           <h3 className="mb-4 text-lg font-medium leading-none text-white">
             Forms
           </h3>
@@ -150,12 +173,20 @@ const Page = () => {
               </label>
               <input
                 type="text"
-                name="username"
                 id="username"
                 className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="username.example"
                 autoComplete="off"
+                {...register("username", {
+                  required: "Username is required",
+                  maxLength: 20,
+                })}
               />
+              {errors.username && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.username.message}
+                </p>
+              )}
             </div>
             <div>
               <label
@@ -166,12 +197,20 @@ const Page = () => {
               </label>
               <input
                 type="email"
-                name="email"
                 id="email"
                 className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="name@company.com"
                 autoComplete="off"
+                {...register("email", {
+                  required: "Email is required",
+                  maxLength: 30,
+                })}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
             <div>
               <label
@@ -182,28 +221,42 @@ const Page = () => {
               </label>
               <input
                 type="password"
-                name="password"
                 id="password"
                 className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="•••••••••"
                 autoComplete="off"
+                {...register("password", {
+                  required: "Password is required",
+                })}
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
             <div>
               <label
-                htmlFor="confirm-password"
+                htmlFor="confirmPassword"
                 className="block mb-2 text-sm font-medium text-white"
               >
                 Confirm password
               </label>
               <input
                 type="password"
-                name="confirm-password"
-                id="confirm-password"
+                id="confirmPassword"
                 className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="•••••••••"
                 autoComplete="off"
+                {...register("confirmPassword", {
+                  required: "Enter password again"
+                })}
               />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -232,8 +285,15 @@ const Page = () => {
                   className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   placeholder="123-456-7890"
-                  required
+                  {...register("phoneNumber", {
+                    required: "Phone Number is required"
+                  })}
                 />
+                {errors.phoneNumber && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.phoneNumber.message}
+                </p>
+              )}
               </div>
               <p
                 id="helper-text-explanation"
@@ -244,30 +304,31 @@ const Page = () => {
             </div>
 
             <label className="inline-flex items-center mb-5 cursor-pointer">
-              <input type="checkbox" value="" className="sr-only peer" />
+              <input type="checkbox" {...register("toggle")} className="sr-only peer" />
               <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                 Toggle me
               </span>
             </label>
-<div>
-  <label
-    htmlFor="countries"
-    className="block mb-2 text-sm font-medium text-white"
-  >
-    Housing Status (Own, Rent, Other)
-  </label>
-  <select
-    id="countries"
-    className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-  >
-    <option>Own</option>
-    <option>Rent</option>
-    <option>Other</option>
-  </select>
-</div>
-
-            
+            <div>
+              <label
+                htmlFor="housingStatus"
+                className="block mb-2 text-sm font-medium text-white"
+              >
+                Housing Status (Own, Rent, Other)
+              </label>
+              <select
+                id="housingStatus"
+                className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              {...register("housingStatus", {
+                    required: "Phone Number is required"
+                  })}
+              >
+                <option>Own</option>
+                <option>Rent</option>
+                <option>Other</option>
+              </select>
+            </div>
           </div>
 
           <button
