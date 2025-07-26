@@ -8,6 +8,7 @@ import Slider from "@/app/components/ui/Slider";
 import Stepper from "@/app/components/ui/Stepper";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Footer from "@/app/components/Footer";
+import Input from "@/app/components/ui/Input";
 
 type FormValues = {
   username: string;
@@ -164,7 +165,18 @@ const Page = () => {
             Forms
           </h3>
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
-            <div>
+            <Input
+              id="firstName"
+              label="Username"
+              placeholder="John"
+              registration={register("username", {
+                required: "First Name is required",
+                maxLength: 20,
+              })}
+              error={errors.username}
+            />
+
+            {/* <div>
               <label
                 htmlFor="username"
                 className="block mb-2 text-sm font-medium text-white"
@@ -187,7 +199,7 @@ const Page = () => {
                   {errors.username.message}
                 </p>
               )}
-            </div>
+            </div> */}
             <div>
               <label
                 htmlFor="email"
@@ -249,7 +261,7 @@ const Page = () => {
                 placeholder="•••••••••"
                 autoComplete="off"
                 {...register("confirmPassword", {
-                  required: "Enter password again"
+                  required: "Enter password again",
                 })}
               />
               {errors.confirmPassword && (
@@ -283,17 +295,17 @@ const Page = () => {
                   id="phone-input"
                   aria-describedby="helper-text-explanation"
                   className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   placeholder="123-456-7890"
                   {...register("phoneNumber", {
-                    required: "Phone Number is required"
+                    required: "Phone Number is required",
                   })}
                 />
                 {errors.phoneNumber && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.phoneNumber.message}
-                </p>
-              )}
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.phoneNumber.message}
+                  </p>
+                )}
               </div>
               <p
                 id="helper-text-explanation"
@@ -304,7 +316,11 @@ const Page = () => {
             </div>
 
             <label className="inline-flex items-center mb-5 cursor-pointer">
-              <input type="checkbox" {...register("toggle")} className="sr-only peer" />
+              <input
+                type="checkbox"
+                {...register("toggle")}
+                className="sr-only peer"
+              />
               <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                 Toggle me
@@ -320,9 +336,9 @@ const Page = () => {
               <select
                 id="housingStatus"
                 className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              {...register("housingStatus", {
-                    required: "Phone Number is required"
-                  })}
+                {...register("housingStatus", {
+                  required: "Phone Number is required",
+                })}
               >
                 <option>Own</option>
                 <option>Rent</option>

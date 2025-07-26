@@ -1,8 +1,37 @@
+"use client";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import Header from "@/app/components/Header";
 import Stepper from "@/app/components/ui/Stepper";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
+import Input from "@/app/components/ui/Input";
+
+type FormValues = {
+  prefill: boolean;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  dateOfBirth: string;
+  emailAddress: string;
+  phoneNumber: string;
+  monthlyIncome: string;
+  monthlyRent: string;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  housingStatus: string;
+};
 
 const Page = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    mode: "onBlur",
+  });
+
   const steps = [
     {
       title: "Personal Info",
@@ -51,6 +80,10 @@ const Page = () => {
     },
   ];
 
+  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
+    console.log(data);
+  };
+
   return (
     <main className="pt-24">
       <Header />
@@ -83,12 +116,162 @@ const Page = () => {
         <section className="flex gap-12 p-4">
           <TimelineStepper steps={steps} />
 
-          <section>
-            <h2 className="text-lg">Personal Info</h2>
+          <section className="w-full">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex justify-between items-center w-full">
+                <h2 className="text-lg block">Personal Info</h2>
 
-            
+                <label className="inline-flex items-center mb-5 cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" />
+                  <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                  <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Toggle me
+                  </span>
+                </label>
+              </div>
+
+              <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                <Input
+                  id="firstName"
+                  label="First Name"
+                  placeholder="John"
+                  registration={register("firstName", {
+                    required: "First Name is required",
+                    maxLength: 20,
+                  })}
+                  error={errors.firstName}
+                />
+
+                <Input
+                  id="middleName"
+                  label="Middle Name"
+                  placeholder="Williams"
+                  registration={register("middleName", {
+                    required: "Middle Name is required",
+                    maxLength: 20,
+                  })}
+                  error={errors.middleName}
+                />
+
+                <Input
+                  id="lastName"
+                  label="Last Name"
+                  placeholder="Doe"
+                  registration={register("lastName", {
+                    required: "Last Name is required",
+                  })}
+                  error={errors.lastName}
+                />
+
+                <Input
+                  id="dateOfBirth"
+                  label="Date of Birth"
+                  type="date"
+                  registration={register("dateOfBirth", {
+                    required: "Date of birth is required",
+                  })}
+                  error={errors.dateOfBirth}
+                />
+
+                <Input
+                  id="emailAddress"
+                  label="Email Address"
+                  type="email"
+                  placeholder="john.doe@example.com"
+                  registration={register("emailAddress", {
+                    required: "Email is required",
+                  })}
+                  error={errors.emailAddress}
+                />
+
+                <Input
+                  id="phoneNumber"
+                  label="Phone Number"
+                  type="tel"
+                  placeholder="+1 123 456 7890"
+                  registration={register("phoneNumber", {
+                    required: "Phone number is required",
+                  })}
+                  error={errors.phoneNumber}
+                />
+
+                <Input
+                  id="monthlyIncome"
+                  label="Monthly Income"
+                  type="number"
+                  placeholder="5000"
+                  registration={register("monthlyIncome")}
+                  error={errors.monthlyIncome}
+                />
+
+                <Input
+                  id="monthlyRent"
+                  label="Monthly Rent"
+                  type="number"
+                  placeholder="1500"
+                  registration={register("monthlyRent")}
+                  error={errors.monthlyRent}
+                />
+
+                <Input
+                  id="street"
+                  label="Street"
+                  placeholder="123 Main St"
+                  registration={register("street")}
+                  error={errors.street}
+                />
+
+                <Input
+                  id="city"
+                  label="City"
+                  placeholder="New York"
+                  registration={register("city")}
+                  error={errors.city}
+                />
+
+                <Input
+                  id="state"
+                  label="State"
+                  placeholder="NY"
+                  registration={register("state")}
+                  error={errors.state}
+                />
+
+                <Input
+                  id="zipcode"
+                  label="Zip Code"
+                  placeholder="10001"
+                  registration={register("zipcode")}
+                  error={errors.zipcode}
+                />
+
+                {/* Housing Status dropdown */}
+                <div>
+                  <label
+                    htmlFor="housingStatus"
+                    className="block mb-2 text-sm font-medium text-white"
+                  >
+                    Housing Status
+                  </label>
+                  <select
+                    id="housingStatus"
+                    className="bg-secondary border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    {...register("housingStatus")}
+                  >
+                    <option value="">Select</option>
+                    <option value="rent">Rent</option>
+                    <option value="own">Own</option>
+                    <option value="with_family">With Family</option>
+                  </select>
+                  {errors.housingStatus && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.housingStatus.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </form>
           </section>
-
         </section>
       </section>
     </main>
