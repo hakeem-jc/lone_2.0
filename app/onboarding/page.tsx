@@ -318,21 +318,68 @@ const Page = () => {
                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   I’ve read the{" "}
-                  <span className="font-semibold cursor-pointer">privacy policy</span> and
-                  consent to identity verification
+                  <span className="font-semibold cursor-pointer">
+                    privacy policy
+                  </span>{" "}
+                  and consent to identity verification
                 </label>
               </div>
+            </form>
 
-              <div className="text-center mt-10">
-                <p>
-                  We’ll never share your details. See our{" "}
-                  <span className="font-semibold cursor-pointer">Privacy Policy</span>.
-                </p>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex justify-between items-center w-full">
+                <h2 className="text-lg block">Review and Confirmation</h2>
               </div>
+
+              <section className="flex w-full flex-wrap">
+                <p className="w-1/3">
+                  <strong>Name:</strong> Temp
+                </p>
+                <p className="w-1/3">
+                  <strong>DOB:</strong>{" "}
+                </p>
+                <p className="w-1/3">
+                  <strong>Email:</strong>{" "}
+                </p>
+                <p className="w-1/3">
+                  <strong>Phone Number:</strong>{" "}
+                </p>
+                <p className="w-1/3">
+                  <strong>Monthly Income:</strong>{" "}
+                </p>
+                <p className="w-1/3">
+                  <strong>Monthly Rent / Mortgage Payment:</strong>{" "}
+                </p>
+                <div className="flex items-center mt-4">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    // {...register("privacyPolicy")}
+                    className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+                  />
+                  <label
+                    htmlFor="privacyPolicy"
+                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    I’ve read the{" "}
+                    <span className="font-semibold cursor-pointer">
+                      privacy policy
+                    </span>{" "}
+                    and consent to identity verification
+                  </label>
+                </div>
+              </section>
             </form>
           </section>
         </section>
       </section>
+
+      <div className="text-center my-10">
+        <p>
+          We’ll never share your details. See our{" "}
+          <span className="font-semibold cursor-pointer">Privacy Policy</span>.
+        </p>
+      </div>
       <Footer />
     </main>
   );
