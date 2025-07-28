@@ -6,6 +6,7 @@ import Stepper from "@/app/components/ui/Stepper";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
+import Footer from "@/app/components/Footer";
 
 type FormValues = {
   prefill: boolean;
@@ -285,9 +286,54 @@ const Page = () => {
                 />
               </div>
             </form>
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex justify-between items-center w-full">
+                <h2 className="text-lg block">
+                  Identity Verification / Know Your Customer
+                </h2>
+              </div>
+
+              {/* TODO - Add file upload component */}
+              <Input
+                id="firstName"
+                label="First Name"
+                placeholder="John"
+                registration={register("firstName", {
+                  required: "First Name is required",
+                  maxLength: 20,
+                })}
+                error={errors.firstName}
+              />
+
+              <div className="flex items-center mt-4">
+                <input
+                  id="default-checkbox"
+                  type="checkbox"
+                  // {...register("privacyPolicy")}
+                  className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+                />
+                <label
+                  htmlFor="privacyPolicy"
+                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  I’ve read the{" "}
+                  <span className="font-semibold cursor-pointer">privacy policy</span> and
+                  consent to identity verification
+                </label>
+              </div>
+
+              <div className="text-center mt-10">
+                <p>
+                  We’ll never share your details. See our{" "}
+                  <span className="font-semibold cursor-pointer">Privacy Policy</span>.
+                </p>
+              </div>
+            </form>
           </section>
         </section>
       </section>
+      <Footer />
     </main>
   );
 };
