@@ -5,6 +5,7 @@ import Header from "@/app/components/Header";
 import Stepper from "@/app/components/ui/Stepper";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
+import Button from "@/app/components/ui/Button";
 
 type FormValues = {
   prefill: boolean;
@@ -113,8 +114,10 @@ const Page = () => {
           ]}
         />
 
-        <section className="flex gap-12 p-4">
-          <TimelineStepper steps={steps} />
+        <section className="flex gap-15 p-4">
+          <div>
+            <TimelineStepper steps={steps} />
+          </div>
 
           <section className="w-full">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -269,6 +272,17 @@ const Page = () => {
                     </p>
                   )}
                 </div>
+              </div>
+              <div className="pt-4 text-center">
+                <Button
+                  text="Save and Continue"
+                  color="blue"
+                  size="wide"
+                  icon={false}
+                  onClick={() => {
+                    // TODO - Add next section logic
+                  }}
+                />
               </div>
             </form>
           </section>

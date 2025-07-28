@@ -4,7 +4,7 @@ type ButtonProps = {
   text: string;
   color?: 'blue' | 'black';
   size?: 'small' | 'wide';
-  icon?: 'forward' | 'downward';
+  icon?: 'forward' | 'downward' | false;
   onClick?: () => void;
 };
 
