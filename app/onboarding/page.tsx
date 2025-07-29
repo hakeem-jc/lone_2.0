@@ -109,6 +109,7 @@ const Page = () => {
 
   const onSubmitOne: SubmitHandler<FormValues> = (data: FormValues) => {
     console.log(data);
+    setCurrentPage("two");
   };
 
   const onSubmitTwo: SubmitHandler<FormValuesTwo> = (data: FormValuesTwo) => {
@@ -120,11 +121,7 @@ const Page = () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    // Example upload
-    // fetch('/upload', {
-    //   method: 'POST',
-    //   body: formData,
-    // });
+    setCurrentPage("three");
   };
 
   const onSubmitThree: SubmitHandler<FormValuesThree> = (
@@ -329,15 +326,16 @@ const Page = () => {
                     color="blue"
                     size="wide"
                     icon={false}
-                    onClick={() => {
-                      // TODO - Add next section logic
-                    }}
+                    type={"submit"}
+                    // onClick={() => {
+                    //   // TODO - Add next section logic
+                    // }}
                   />
                 </div>
               </form>
             )}
 
-            {currentPage === "one" && (
+            {currentPage === "two" && (
               <form onSubmit={handleSubmitStepTwo(onSubmitTwo)}>
                 <div className="flex justify-between items-center w-full mb-4">
                   <h2 className="text-lg block">
@@ -385,13 +383,14 @@ const Page = () => {
                     color="blue"
                     size="wide"
                     icon={false}
-                    onClick={() => setCurrentPage("three")}
+                    type={"submit"}
+                    // onClick={() => setCurrentPage("three")}
                   />
                 </div>
               </form>
             )}
 
-            {currentPage === "one" && (
+            {currentPage === "three" && (
               <form onSubmit={handleSubmitStepThree(onSubmitThree)}>
                 <div className="flex justify-between items-center w-full">
                   <h2 className="text-lg block">Review and Confirmation</h2>
@@ -446,7 +445,8 @@ const Page = () => {
                     color="blue"
                     size="wide"
                     icon={false}
-                    onClick={() => setCurrentPage("three")}
+                    type={"submit"}
+                    // onClick={() => setCurrentPage("three")}
                   />
                 </div>
               </form>
