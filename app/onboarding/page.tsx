@@ -30,6 +30,10 @@ type FormValuesTwo = {
   file: FileList;
 };
 
+type FormValuesThree = {
+  privacyPolicy: boolean;
+};
+
 const Page = () => {
   const {
     register,
@@ -44,6 +48,14 @@ const Page = () => {
     handleSubmit: handleSubmitStepTwo,
     formState: { errors: errorsStepTwo },
   } = useForm<FormValuesTwo>({
+    mode: "onBlur",
+  });
+
+  const {
+    register: registerStepThree,
+    handleSubmit: handleSubmitStepThree,
+    formState: { errors: errorsStepThree },
+  } = useForm<FormValuesThree>({
     mode: "onBlur",
   });
 
@@ -115,7 +127,9 @@ const Page = () => {
     // });
   };
 
-  const onSubmitThree: SubmitHandler<FormValues> = (data: FormValues) => {
+  const onSubmitThree: SubmitHandler<FormValuesThree> = (
+    data: FormValuesThree
+  ) => {
     console.log(data);
   };
 
@@ -285,7 +299,6 @@ const Page = () => {
                     error={errors.zipcode}
                   />
 
-                  {/* Housing Status dropdown */}
                   <div>
                     <label
                       htmlFor="housingStatus"
@@ -324,7 +337,7 @@ const Page = () => {
               </form>
             )}
 
-            {currentPage === "two" && (
+            {currentPage === "one" && (
               <form onSubmit={handleSubmitStepTwo(onSubmitTwo)}>
                 <div className="flex justify-between items-center w-full mb-4">
                   <h2 className="text-lg block">
@@ -333,18 +346,6 @@ const Page = () => {
                 </div>
 
                 <div className="mb-6">
-                  <div className="flex items-center w-full">
-                    <span
-                      className="grow-0 overflow-hidden truncate"
-                      data-hs-file-upload-file-name=""
-                    ></span>
-                    <span className="grow-0">.</span>
-                    <span
-                      className="grow-0"
-                      data-hs-file-upload-file-ext=""
-                    ></span>
-                  </div>
-
                   <button
                     type="button"
                     className="relative flex w-full border overflow-hidden border-neutral-700 shadow-2xs rounded-lg text-sm focus:outline-hidden focus:z-10 focus:border-neutral-600 disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 text-neutral-400"
@@ -378,24 +379,6 @@ const Page = () => {
                   )}
                 </div>
 
-                <div className="flex items-center mt-4">
-                  <input
-                    id="privacyPolicy"
-                    type="checkbox"
-                    className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
-                  />
-                  <label
-                    htmlFor="privacyPolicy"
-                    className="ms-2 text-sm font-medium text-neutral-300"
-                  >
-                    I’ve read the{" "}
-                    <span className="font-semibold cursor-pointer">
-                      privacy policy
-                    </span>{" "}
-                    and consent to identity verification
-                  </label>
-                </div>
-
                 <div className="pt-4 text-center">
                   <Button
                     text="Save and Continue"
@@ -408,14 +391,14 @@ const Page = () => {
               </form>
             )}
 
-            {currentPage === "three" && (
-              <form onSubmit={handleSubmit(onSubmitThree)}>
+            {currentPage === "one" && (
+              <form onSubmit={handleSubmitStepThree(onSubmitThree)}>
                 <div className="flex justify-between items-center w-full">
                   <h2 className="text-lg block">Review and Confirmation</h2>
                 </div>
 
                 <section className="flex w-full flex-wrap">
-                  <p className="w-1/3">
+                  <p className="w-1/3 pb-4 pt-4">
                     <strong>Name:</strong> Temp
                   </p>
                   <p className="w-1/3">
@@ -437,7 +420,7 @@ const Page = () => {
                     <input
                       id="default-checkbox"
                       type="checkbox"
-                      // {...register("privacyPolicy")}
+                      {...registerStepThree("privacyPolicy")}
                       className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
                     />
                     <label
@@ -450,8 +433,22 @@ const Page = () => {
                       </span>{" "}
                       and consent to identity verification
                     </label>
+                    {errorsStepThree.privacyPolicy && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errorsStepThree.privacyPolicy.message}
+                      </p>
+                    )}
                   </div>
                 </section>
+                <div className="pt-8 text-center">
+                  <Button
+                    text="Save and Continue"
+                    color="blue"
+                    size="wide"
+                    icon={false}
+                    onClick={() => setCurrentPage("three")}
+                  />
+                </div>
               </form>
             )}
           </section>
