@@ -58,12 +58,16 @@ const Page = () => {
   } = useForm<FormValuesThree>({
     mode: "onBlur",
   });
+  
+  const [currentPage, setCurrentPage] = useState("one");
 
+  const isPageCompleted = (page:string) => currentPage === page
+  
   const steps = [
     {
       title: "Personal Info",
       description: "Tell us about yourself",
-      completed: false,
+      completed: isPageCompleted("one"),
       icon: (
         <svg
           aria-hidden="true"
@@ -78,7 +82,7 @@ const Page = () => {
     {
       title: "Identity Verification (KYC)",
       description: "Validate your ID",
-      completed: false,
+      completed: isPageCompleted("two"),
       icon: (
         <svg
           aria-hidden="true"
@@ -93,7 +97,7 @@ const Page = () => {
     {
       title: "Review and Confirmation",
       description: "One last check",
-      completed: false,
+      completed: isPageCompleted("three"),
       icon: (
         <svg
           aria-hidden="true"
@@ -129,8 +133,6 @@ const Page = () => {
   ) => {
     console.log(data);
   };
-
-  const [currentPage, setCurrentPage] = useState("one");
 
   return (
     <main className="pt-24">
