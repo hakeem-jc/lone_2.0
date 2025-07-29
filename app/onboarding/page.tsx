@@ -39,6 +39,14 @@ const Page = () => {
     mode: "onBlur",
   });
 
+  const {
+    register: registerStepTwo,
+    handleSubmit: handleSubmitStepTwo,
+    formState: { errors: errorsStepTwo },
+  } = useForm<FormValuesTwo>({
+    mode: "onBlur",
+  });
+
   const steps = [
     {
       title: "Personal Info",
@@ -91,14 +99,20 @@ const Page = () => {
     console.log(data);
   };
 
-  const onSubmitTwo: SubmitHandler<FormValues> = (data: FormValues) => {
-    // const file = data.file[0];
-    // console.log('Uploaded file:', file);
+  const onSubmitTwo: SubmitHandler<FormValuesTwo> = (data: FormValuesTwo) => {
+    const file = data.file?.[0];
+    if (!file) return;
 
-    // // You can now send file via FormData, etc.
-    // const formData = new FormData();
-    // formData.append('file', file);
-    console.log(data);
+    console.log("Uploaded file:", file);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    // Example upload
+    // fetch('/upload', {
+    //   method: 'POST',
+    //   body: formData,
+    // });
   };
 
   const onSubmitThree: SubmitHandler<FormValues> = (data: FormValues) => {
@@ -311,47 +325,68 @@ const Page = () => {
             )}
 
             {currentPage === "two" && (
-              <form onSubmit={handleSubmit(onSubmitTwo)}>
-                <div className="flex justify-between items-center w-full">
+              <form onSubmit={handleSubmitStepTwo(onSubmitTwo)}>
+                <div className="flex justify-between items-center w-full mb-4">
                   <h2 className="text-lg block">
                     Identity Verification / Know Your Customer
                   </h2>
                 </div>
 
-                {/* TODO - Add file upload component */}
-                {/* <Input
-                  id="firstName"
-                  label="First Name"
-                  placeholder="John"
-                  registration={register("firstName", {
-                    required: "First Name is required",
-                    maxLength: 20,
-                  })}
-                  error={errors.firstName}
-                /> */}
+                <div className="mb-6">
+                  <div className="flex items-center w-full">
+                    <span
+                      className="grow-0 overflow-hidden truncate"
+                      data-hs-file-upload-file-name=""
+                    ></span>
+                    <span className="grow-0">.</span>
+                    <span
+                      className="grow-0"
+                      data-hs-file-upload-file-ext=""
+                    ></span>
+                  </div>
 
-                <div>
-                  <label className="block mb-1 font-medium">Upload File</label>
-                  <input
-                    type="file"
-                    // {...register('file', { required: 'Please select a file' })}
-                    className="block w-full"
-                  />
-                  {/* {errors.file && (
-                      <p className="text-red-500 text-sm mt-1">{errors.file.message}</p>
-                    )} */}
+                  <button
+                    type="button"
+                    className="relative flex w-full border overflow-hidden border-neutral-700 shadow-2xs rounded-lg text-sm focus:outline-hidden focus:z-10 focus:border-neutral-600 disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 text-neutral-400"
+                  >
+                    <span className="h-full py-3 px-4 bg-neutral-800 text-nowrap">
+                      Choose File
+                    </span>
+                    <span
+                      className="group grow flex overflow-hidden h-full py-3 px-4"
+                      data-hs-file-upload-previews=""
+                    >
+                      <span className="group-has-[div]:hidden">
+                        No Chosen File
+                      </span>
+                    </span>
+                    <span className="absolute top-0 left-0 size-full opacity-0 cursor-pointer">
+                      <input
+                        type="file"
+                        {...registerStepTwo("file", {
+                          required: "Please select a file",
+                        })}
+                        className="w-full h-full cursor-pointer"
+                      />
+                    </span>
+                  </button>
+
+                  {errorsStepTwo.file && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errorsStepTwo.file.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex items-center mt-4">
                   <input
-                    id="default-checkbox"
+                    id="privacyPolicy"
                     type="checkbox"
-                    // {...register("privacyPolicy")}
                     className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
                   />
                   <label
                     htmlFor="privacyPolicy"
-                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    className="ms-2 text-sm font-medium text-neutral-300"
                   >
                     I’ve read the{" "}
                     <span className="font-semibold cursor-pointer">
@@ -359,6 +394,16 @@ const Page = () => {
                     </span>{" "}
                     and consent to identity verification
                   </label>
+                </div>
+
+                <div className="pt-4 text-center">
+                  <Button
+                    text="Save and Continue"
+                    color="blue"
+                    size="wide"
+                    icon={false}
+                    onClick={() => setCurrentPage("three")}
+                  />
                 </div>
               </form>
             )}
