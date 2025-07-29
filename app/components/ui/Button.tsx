@@ -6,6 +6,7 @@ type ButtonProps = {
   size?: 'small' | 'wide';
   icon?: 'forward' | 'downward' | false;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 };
 
 const colors: Record<string, string> = {
@@ -61,10 +62,11 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   icon = 'forward',
   onClick,
+  type = 'button'
 }) => {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={`font-medium rounded-lg text-center inline-flex items-center ${colors[color]} ${sizes[size]}`}
     >
