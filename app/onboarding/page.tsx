@@ -34,11 +34,18 @@ type FormValuesThree = {
   privacyPolicy: boolean;
 };
 
+type StoredFormData = {
+  stepOne?: FormValues;
+  stepTwo?: { fileName: string };
+  stepThree?: FormValuesThree;
+};
+
 const Page = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormValues>({
     mode: "onBlur",
   });
@@ -58,11 +65,27 @@ const Page = () => {
   } = useForm<FormValuesThree>({
     mode: "onBlur",
   });
-  
-  const [currentPage, setCurrentPage] = useState("one");
 
-  const isPageCompleted = (page:string) => currentPage === page
-  
+  const [currentPage, setCurrentPage] = useState("one");
+  const [selectedFileName, setSelectedFileName] = useState<string>("");
+
+  const isPageCompleted = (page: string) => {
+    const pageOrder = ["one", "two", "three"];
+    const currentIndex = pageOrder.indexOf(currentPage);
+    const pageIndex = pageOrder.indexOf(page);
+    return pageIndex <= currentIndex;
+  };
+  const [formData, setFormData] = useState<StoredFormData>({});
+  const [isPrefilled, setIsPrefilled] = useState(false);
+
+  const handleBack = () => {
+    if (currentPage === "two") {
+      setCurrentPage("one");
+    } else if (currentPage === "three") {
+      setCurrentPage("two");
+    }
+  };
+
   const steps = [
     {
       title: "Personal Info",
@@ -113,6 +136,7 @@ const Page = () => {
 
   const onSubmitOne: SubmitHandler<FormValues> = (data: FormValues) => {
     console.log(data);
+    setFormData((prev) => ({ ...prev, stepOne: data }));
     setCurrentPage("two");
   };
 
@@ -121,9 +145,13 @@ const Page = () => {
     if (!file) return;
 
     console.log("Uploaded file:", file);
+    // const formDataObj = new FormData();
+    // formDataObj.append("file", file);
+    // setFormData((prev) => ({ ...prev, stepTwo: { fileName: file.name } }));
 
     const formData = new FormData();
     formData.append("file", file);
+    setFormData((prev) => ({ ...prev, stepTwo: { fileName: file.name } }));
 
     setCurrentPage("three");
   };
@@ -132,6 +160,42 @@ const Page = () => {
     data: FormValuesThree
   ) => {
     console.log(data);
+    setFormData((prev) => ({ ...prev, stepThree: data }));
+    console.log("Complete form data:", { ...formData, stepThree: data });
+  };
+
+  const prefill = () => {
+    if (!isPrefilled) {
+      setValue("firstName", "John");
+      setValue("middleName", "Williams");
+      setValue("lastName", "Doe");
+      setValue("dateOfBirth", "1990-05-15");
+      setValue("emailAddress", "john.doe@example.com");
+      setValue("phoneNumber", "+1 123 456 7890");
+      setValue("monthlyIncome", "5000");
+      setValue("monthlyRent", "1500");
+      setValue("street", "123 Main St");
+      setValue("city", "New York");
+      setValue("state", "NY");
+      setValue("zipcode", "10001");
+      setValue("housingStatus", "rent");
+      setIsPrefilled(true);
+    } else {
+      setValue("firstName", "");
+      setValue("middleName", "");
+      setValue("lastName", "");
+      setValue("dateOfBirth", "");
+      setValue("emailAddress", "");
+      setValue("phoneNumber", "");
+      setValue("monthlyIncome", "");
+      setValue("monthlyRent", "");
+      setValue("street", "");
+      setValue("city", "");
+      setValue("state", "");
+      setValue("zipcode", "");
+      setValue("housingStatus", "");
+      setIsPrefilled(false);
+    }
   };
 
   return (
@@ -175,10 +239,15 @@ const Page = () => {
                   <h2 className="text-lg block">Personal Info</h2>
 
                   <label className="inline-flex items-center mb-5 cursor-pointer">
-                    <input type="checkbox" className="sr-only peer" />
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      checked={isPrefilled}
+                      onChange={prefill}
+                    />
                     <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
                     <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                      Toggle me
+                      Prefill with Demo Data
                     </span>
                   </label>
                 </div>
@@ -329,9 +398,6 @@ const Page = () => {
                     size="wide"
                     icon={false}
                     type={"submit"}
-                    // onClick={() => {
-                    //   // TODO - Add next section logic
-                    // }}
                   />
                 </div>
               </form>
@@ -357,9 +423,12 @@ const Page = () => {
                       className="group grow flex overflow-hidden h-full py-3 px-4"
                       data-hs-file-upload-previews=""
                     >
-                      <span className="group-has-[div]:hidden">
+                      <span className={selectedFileName ? "hidden" : ""}>
                         No Chosen File
                       </span>
+                      {selectedFileName && (
+                        <span className="text-white">{selectedFileName}</span>
+                      )}
                     </span>
                     <span className="absolute top-0 left-0 size-full opacity-0 cursor-pointer">
                       <input
@@ -367,6 +436,12 @@ const Page = () => {
                         {...registerStepTwo("file", {
                           required: "Please select a file",
                         })}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setSelectedFileName(file.name);
+                          }
+                        }}
                         className="w-full h-full cursor-pointer"
                       />
                     </span>
@@ -379,14 +454,21 @@ const Page = () => {
                   )}
                 </div>
 
-                <div className="pt-4 text-center">
+                <div className="pt-4 text-center flex gap-4 justify-center">
+                  <Button
+                    text="Back"
+                    color="black"
+                    size="wide"
+                    icon={false}
+                    type={"button"}
+                    onClick={handleBack}
+                  />
                   <Button
                     text="Save and Continue"
                     color="blue"
                     size="wide"
                     icon={false}
                     type={"submit"}
-                    // onClick={() => setCurrentPage("three")}
                   />
                 </div>
               </form>
@@ -400,22 +482,26 @@ const Page = () => {
 
                 <section className="flex w-full flex-wrap">
                   <p className="w-1/3 pb-4 pt-4">
-                    <strong>Name:</strong> Temp
+                    <strong>Name:</strong> {formData.stepOne?.firstName}{" "}
+                    {formData.stepOne?.middleName} {formData.stepOne?.lastName}
                   </p>
                   <p className="w-1/3">
-                    <strong>DOB:</strong>{" "}
+                    <strong>DOB:</strong> {formData.stepOne?.dateOfBirth}
                   </p>
                   <p className="w-1/3">
-                    <strong>Email:</strong>{" "}
+                    <strong>Email:</strong> {formData.stepOne?.emailAddress}
                   </p>
                   <p className="w-1/3">
                     <strong>Phone Number:</strong>{" "}
+                    {formData.stepOne?.phoneNumber}
                   </p>
                   <p className="w-1/3">
-                    <strong>Monthly Income:</strong>{" "}
+                    <strong>Monthly Income:</strong> $
+                    {formData.stepOne?.monthlyIncome}
                   </p>
                   <p className="w-1/3">
-                    <strong>Monthly Rent / Mortgage Payment:</strong>{" "}
+                    <strong>Monthly Rent / Mortgage Payment:</strong> $
+                    {formData.stepOne?.monthlyRent}
                   </p>
                   <div className="flex items-center mt-4">
                     <input
@@ -441,14 +527,21 @@ const Page = () => {
                     )}
                   </div>
                 </section>
-                <div className="pt-8 text-center">
+                <div className="pt-4 text-center flex gap-4 justify-center">
+                  <Button
+                    text="Back"
+                    color="black"
+                    size="wide"
+                    icon={false}
+                    type={"button"}
+                    onClick={handleBack}
+                  />
                   <Button
                     text="Save and Continue"
                     color="blue"
                     size="wide"
                     icon={false}
                     type={"submit"}
-                    // onClick={() => setCurrentPage("three")}
                   />
                 </div>
               </form>
