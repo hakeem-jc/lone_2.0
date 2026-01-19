@@ -66,6 +66,11 @@ const Page = () => {
     mode: "onBlur",
   });
 
+  // State for main stepper (Account Info, Loan Info, Review, Disburse)
+  const [currentMainStep, setCurrentMainStep] = useState(0);
+
+  // State Account Info Section
+  // TODO - Update this name to reflect that it's for the Account Info Section
   const [currentPage, setCurrentPage] = useState("one");
   const [selectedFileName, setSelectedFileName] = useState<string>("");
 
@@ -162,6 +167,7 @@ const Page = () => {
     console.log(data);
     setFormData((prev) => ({ ...prev, stepThree: data }));
     console.log("Complete form data:", { ...formData, stepThree: data });
+    setCurrentMainStep(1);
   };
 
   const prefill = () => {
@@ -198,6 +204,27 @@ const Page = () => {
     }
   };
 
+  const handleContinueToReview = () => {
+    setCurrentMainStep(2);
+  };
+
+  const handleContinueToDisburse = () => {
+    setCurrentMainStep(3);
+  };
+
+  const handleBackToAccountInfo = () => {
+    setCurrentMainStep(0);
+    setCurrentPage("one");
+  };
+
+  const handleBackToLoanInfo = () => {
+    setCurrentMainStep(1);
+  };
+
+  const handleBackToReview = () => {
+    setCurrentMainStep(2);
+  };
+
   return (
     <main className="pt-24">
       <Header />
@@ -207,326 +234,357 @@ const Page = () => {
             {
               title: "Account info",
               description: "Tell us about yourself",
-              completed: true,
+              completed: currentMainStep >= 0,
             },
             {
               title: "Loan info",
               description: "How much do you want to borrow",
-              completed: false,
+              completed: currentMainStep >= 1,
             },
             {
               title: "Review",
               description: "Wrap up some paperwork",
-              completed: false,
+              completed: currentMainStep >= 2,
             },
             {
               title: "Disburse",
               description: "Money in your account in seconds",
-              completed: false,
+              completed: currentMainStep >= 3,
             },
           ]}
         />
 
         <section className="flex gap-15 p-4">
-          <div>
-            <TimelineStepper steps={steps} />
-          </div>
+          {currentMainStep === 0 ? (
+            <>
+              <div>
+                <TimelineStepper steps={steps} />
+              </div>
 
-          <section className="w-full">
-            {currentPage === "one" && (
-              <form onSubmit={handleSubmit(onSubmitOne)}>
-                <div className="flex justify-between items-center w-full">
-                  <h2 className="text-lg block">Personal Info</h2>
+              <section className="w-full">
+                {currentPage === "one" && (
+                  <form onSubmit={handleSubmit(onSubmitOne)}>
+                    <div className="flex justify-between items-center w-full">
+                      <h2 className="text-lg block">Personal Info</h2>
 
-                  <label className="inline-flex items-center mb-5 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="sr-only peer"
-                      checked={isPrefilled}
-                      onChange={prefill}
-                    />
-                    <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                    <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                      Prefill with Demo Data
-                    </span>
-                  </label>
-                </div>
+                      <label className="inline-flex items-center mb-5 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={isPrefilled}
+                          onChange={prefill}
+                        />
+                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                        <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                          Prefill with Demo Data
+                        </span>
+                      </label>
+                    </div>
 
-                <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                  <Input
-                    id="firstName"
-                    label="First Name"
-                    placeholder="John"
-                    registration={register("firstName", {
-                      required: "First Name is required",
-                      maxLength: 20,
-                    })}
-                    error={errors.firstName}
-                  />
-
-                  <Input
-                    id="middleName"
-                    label="Middle Name"
-                    placeholder="Williams"
-                    registration={register("middleName", {
-                      required: "Middle Name is required",
-                      maxLength: 20,
-                    })}
-                    error={errors.middleName}
-                  />
-
-                  <Input
-                    id="lastName"
-                    label="Last Name"
-                    placeholder="Doe"
-                    registration={register("lastName", {
-                      required: "Last Name is required",
-                    })}
-                    error={errors.lastName}
-                  />
-
-                  <Input
-                    id="dateOfBirth"
-                    label="Date of Birth"
-                    type="date"
-                    registration={register("dateOfBirth", {
-                      required: "Date of birth is required",
-                    })}
-                    error={errors.dateOfBirth}
-                  />
-
-                  <Input
-                    id="emailAddress"
-                    label="Email Address"
-                    type="email"
-                    placeholder="john.doe@example.com"
-                    registration={register("emailAddress", {
-                      required: "Email is required",
-                    })}
-                    error={errors.emailAddress}
-                  />
-
-                  <Input
-                    id="phoneNumber"
-                    label="Phone Number"
-                    type="tel"
-                    placeholder="+1 123 456 7890"
-                    registration={register("phoneNumber", {
-                      required: "Phone number is required",
-                    })}
-                    error={errors.phoneNumber}
-                  />
-
-                  <Input
-                    id="monthlyIncome"
-                    label="Monthly Income"
-                    type="number"
-                    placeholder="5000"
-                    registration={register("monthlyIncome")}
-                    error={errors.monthlyIncome}
-                  />
-
-                  <Input
-                    id="monthlyRent"
-                    label="Monthly Rent"
-                    type="number"
-                    placeholder="1500"
-                    registration={register("monthlyRent")}
-                    error={errors.monthlyRent}
-                  />
-
-                  <Input
-                    id="street"
-                    label="Street"
-                    placeholder="123 Main St"
-                    registration={register("street")}
-                    error={errors.street}
-                  />
-
-                  <Input
-                    id="city"
-                    label="City"
-                    placeholder="New York"
-                    registration={register("city")}
-                    error={errors.city}
-                  />
-
-                  <Input
-                    id="state"
-                    label="State"
-                    placeholder="NY"
-                    registration={register("state")}
-                    error={errors.state}
-                  />
-
-                  <Input
-                    id="zipcode"
-                    label="Zip Code"
-                    placeholder="10001"
-                    registration={register("zipcode")}
-                    error={errors.zipcode}
-                  />
-
-                  <div>
-                    <label
-                      htmlFor="housingStatus"
-                      className="block mb-2 text-sm font-medium text-white"
-                    >
-                      Housing Status
-                    </label>
-                    <select
-                      id="housingStatus"
-                      className="bg-secondary border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      {...register("housingStatus")}
-                    >
-                      <option value="">Select</option>
-                      <option value="rent">Rent</option>
-                      <option value="own">Own</option>
-                      <option value="with_family">With Family</option>
-                    </select>
-                    {errors.housingStatus && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.housingStatus.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div className="pt-4 text-center">
-                  <Button
-                    text="Save and Continue"
-                    color="blue"
-                    size="wide"
-                    icon={false}
-                    type={"submit"}
-                  />
-                </div>
-              </form>
-            )}
-
-            {currentPage === "two" && (
-              <form onSubmit={handleSubmitStepTwo(onSubmitTwo)}>
-                <div className="flex justify-between items-center w-full mb-4">
-                  <h2 className="text-lg block">
-                    Identity Verification / Know Your Customer
-                  </h2>
-                </div>
-
-                <div className="mb-6">
-                  <button
-                    type="button"
-                    className="relative flex w-full border overflow-hidden border-neutral-700 shadow-2xs rounded-lg text-sm focus:outline-hidden focus:z-10 focus:border-neutral-600 disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 text-neutral-400"
-                  >
-                    <span className="h-full py-3 px-4 bg-neutral-800 text-nowrap">
-                      Choose File
-                    </span>
-                    <span
-                      className="group grow flex overflow-hidden h-full py-3 px-4"
-                      data-hs-file-upload-previews=""
-                    >
-                      <span className={selectedFileName ? "hidden" : ""}>
-                        No Chosen File
-                      </span>
-                      {selectedFileName && (
-                        <span className="text-white">{selectedFileName}</span>
-                      )}
-                    </span>
-                    <span className="absolute top-0 left-0 size-full opacity-0 cursor-pointer">
-                      <input
-                        type="file"
-                        {...registerStepTwo("file", {
-                          required: "Please select a file",
+                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                      <Input
+                        id="firstName"
+                        label="First Name"
+                        placeholder="John"
+                        registration={register("firstName", {
+                          required: "First Name is required",
+                          maxLength: 20,
                         })}
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            setSelectedFileName(file.name);
-                          }
-                        }}
-                        className="w-full h-full cursor-pointer"
+                        error={errors.firstName}
                       />
-                    </span>
-                  </button>
 
-                  {errorsStepTwo.file && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errorsStepTwo.file.message}
-                    </p>
-                  )}
-                </div>
+                      <Input
+                        id="middleName"
+                        label="Middle Name"
+                        placeholder="Williams"
+                        registration={register("middleName", {
+                          required: "Middle Name is required",
+                          maxLength: 20,
+                        })}
+                        error={errors.middleName}
+                      />
 
-                <div className="pt-4 text-center flex gap-4 justify-center">
-                  <Button
-                    text="Back"
-                    color="black"
-                    size="wide"
-                    icon={false}
-                    type={"button"}
-                    onClick={handleBack}
-                  />
-                  <Button
-                    text="Save and Continue"
-                    color="blue"
-                    size="wide"
-                    icon={false}
-                    type={"submit"}
-                  />
-                </div>
-              </form>
-            )}
+                      <Input
+                        id="lastName"
+                        label="Last Name"
+                        placeholder="Doe"
+                        registration={register("lastName", {
+                          required: "Last Name is required",
+                        })}
+                        error={errors.lastName}
+                      />
 
-            {currentPage === "three" && (
-              <form onSubmit={handleSubmitStepThree(onSubmitThree)}>
-                <div className="flex justify-between items-center w-full">
-                  <h2 className="text-lg block">Review and Confirmation</h2>
-                </div>
+                      <Input
+                        id="dateOfBirth"
+                        label="Date of Birth"
+                        type="date"
+                        registration={register("dateOfBirth", {
+                          required: "Date of birth is required",
+                        })}
+                        error={errors.dateOfBirth}
+                      />
 
-                <section className="flex w-full flex-wrap">
-                  <p className="w-1/3 pb-4 pt-4">
-                    <strong>Name:</strong> {formData.stepOne?.firstName}{" "}
-                    {formData.stepOne?.middleName} {formData.stepOne?.lastName}
-                  </p>
-                  <p className="w-1/3">
-                    <strong>DOB:</strong> {formData.stepOne?.dateOfBirth}
-                  </p>
-                  <p className="w-1/3">
-                    <strong>Email:</strong> {formData.stepOne?.emailAddress}
-                  </p>
-                  <p className="w-1/3">
-                    <strong>Phone Number:</strong>{" "}
-                    {formData.stepOne?.phoneNumber}
-                  </p>
-                  <p className="w-1/3">
-                    <strong>Monthly Income:</strong> $
-                    {formData.stepOne?.monthlyIncome}
-                  </p>
-                  <p className="w-1/3">
-                    <strong>Monthly Rent / Mortgage Payment:</strong> $
-                    {formData.stepOne?.monthlyRent}
-                  </p>
-                  <div className="flex items-center mt-4">
-                    <input
-                      id="default-checkbox"
-                      type="checkbox"
-                      {...registerStepThree("privacyPolicy")}
-                      className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
-                    />
-                    <label
-                      htmlFor="privacyPolicy"
-                      className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      I’ve read the{" "}
-                      <span className="font-semibold cursor-pointer">
-                        privacy policy
-                      </span>{" "}
-                      and consent to identity verification
-                    </label>
-                    {errorsStepThree.privacyPolicy && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errorsStepThree.privacyPolicy.message}
+                      <Input
+                        id="emailAddress"
+                        label="Email Address"
+                        type="email"
+                        placeholder="john.doe@example.com"
+                        registration={register("emailAddress", {
+                          required: "Email is required",
+                        })}
+                        error={errors.emailAddress}
+                      />
+
+                      <Input
+                        id="phoneNumber"
+                        label="Phone Number"
+                        type="tel"
+                        placeholder="+1 123 456 7890"
+                        registration={register("phoneNumber", {
+                          required: "Phone number is required",
+                        })}
+                        error={errors.phoneNumber}
+                      />
+
+                      <Input
+                        id="monthlyIncome"
+                        label="Monthly Income"
+                        type="number"
+                        placeholder="5000"
+                        registration={register("monthlyIncome")}
+                        error={errors.monthlyIncome}
+                      />
+
+                      <Input
+                        id="monthlyRent"
+                        label="Monthly Rent"
+                        type="number"
+                        placeholder="1500"
+                        registration={register("monthlyRent")}
+                        error={errors.monthlyRent}
+                      />
+
+                      <Input
+                        id="street"
+                        label="Street"
+                        placeholder="123 Main St"
+                        registration={register("street")}
+                        error={errors.street}
+                      />
+
+                      <Input
+                        id="city"
+                        label="City"
+                        placeholder="New York"
+                        registration={register("city")}
+                        error={errors.city}
+                      />
+
+                      <Input
+                        id="state"
+                        label="State"
+                        placeholder="NY"
+                        registration={register("state")}
+                        error={errors.state}
+                      />
+
+                      <Input
+                        id="zipcode"
+                        label="Zip Code"
+                        placeholder="10001"
+                        registration={register("zipcode")}
+                        error={errors.zipcode}
+                      />
+
+                      <div>
+                        <label
+                          htmlFor="housingStatus"
+                          className="block mb-2 text-sm font-medium text-white"
+                        >
+                          Housing Status
+                        </label>
+                        <select
+                          id="housingStatus"
+                          className="bg-secondary border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                          {...register("housingStatus")}
+                        >
+                          <option value="">Select</option>
+                          <option value="rent">Rent</option>
+                          <option value="own">Own</option>
+                          <option value="with_family">With Family</option>
+                        </select>
+                        {errors.housingStatus && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.housingStatus.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="pt-4 text-center">
+                      <Button
+                        text="Save and Continue"
+                        color="blue"
+                        size="wide"
+                        icon={false}
+                        type={"submit"}
+                      />
+                    </div>
+                  </form>
+                )}
+
+                {currentPage === "two" && (
+                  <form onSubmit={handleSubmitStepTwo(onSubmitTwo)}>
+                    <div className="flex justify-between items-center w-full mb-4">
+                      <h2 className="text-lg block">
+                        Identity Verification / Know Your Customer
+                      </h2>
+                    </div>
+
+                    <div className="mb-6">
+                      <button
+                        type="button"
+                        className="relative flex w-full border overflow-hidden border-neutral-700 shadow-2xs rounded-lg text-sm focus:outline-hidden focus:z-10 focus:border-neutral-600 disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 text-neutral-400"
+                      >
+                        <span className="h-full py-3 px-4 bg-neutral-800 text-nowrap">
+                          Choose File
+                        </span>
+                        <span
+                          className="group grow flex overflow-hidden h-full py-3 px-4"
+                          data-hs-file-upload-previews=""
+                        >
+                          <span className={selectedFileName ? "hidden" : ""}>
+                            No Chosen File
+                          </span>
+                          {selectedFileName && (
+                            <span className="text-white">
+                              {selectedFileName}
+                            </span>
+                          )}
+                        </span>
+                        <span className="absolute top-0 left-0 size-full opacity-0 cursor-pointer">
+                          <input
+                            type="file"
+                            {...registerStepTwo("file", {
+                              required: "Please select a file",
+                            })}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                setSelectedFileName(file.name);
+                              }
+                            }}
+                            className="w-full h-full cursor-pointer"
+                          />
+                        </span>
+                      </button>
+
+                      {errorsStepTwo.file && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errorsStepTwo.file.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="pt-4 text-center flex gap-4 justify-center">
+                      <Button
+                        text="Back"
+                        color="black"
+                        size="wide"
+                        icon={false}
+                        type={"button"}
+                        onClick={handleBack}
+                      />
+                      <Button
+                        text="Save and Continue"
+                        color="blue"
+                        size="wide"
+                        icon={false}
+                        type={"submit"}
+                      />
+                    </div>
+                  </form>
+                )}
+
+                {currentPage === "three" && (
+                  <form onSubmit={handleSubmitStepThree(onSubmitThree)}>
+                    <div className="flex justify-between items-center w-full">
+                      <h2 className="text-lg block">Review and Confirmation</h2>
+                    </div>
+
+                    <section className="flex w-full flex-wrap">
+                      <p className="w-1/3 pb-4 pt-4">
+                        <strong>Name:</strong> {formData.stepOne?.firstName}{" "}
+                        {formData.stepOne?.middleName}{" "}
+                        {formData.stepOne?.lastName}
                       </p>
-                    )}
-                  </div>
-                </section>
+                      <p className="w-1/3">
+                        <strong>DOB:</strong> {formData.stepOne?.dateOfBirth}
+                      </p>
+                      <p className="w-1/3">
+                        <strong>Email:</strong> {formData.stepOne?.emailAddress}
+                      </p>
+                      <p className="w-1/3">
+                        <strong>Phone Number:</strong>{" "}
+                        {formData.stepOne?.phoneNumber}
+                      </p>
+                      <p className="w-1/3">
+                        <strong>Monthly Income:</strong> $
+                        {formData.stepOne?.monthlyIncome}
+                      </p>
+                      <p className="w-1/3">
+                        <strong>Monthly Rent / Mortgage Payment:</strong> $
+                        {formData.stepOne?.monthlyRent}
+                      </p>
+                      <div className="flex items-center mt-4">
+                        <input
+                          id="default-checkbox"
+                          type="checkbox"
+                          {...registerStepThree("privacyPolicy")}
+                          className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+                        />
+                        <label
+                          htmlFor="privacyPolicy"
+                          className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                          I’ve read the{" "}
+                          <span className="font-semibold cursor-pointer">
+                            privacy policy
+                          </span>{" "}
+                          and consent to identity verification
+                        </label>
+                        {errorsStepThree.privacyPolicy && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errorsStepThree.privacyPolicy.message}
+                          </p>
+                        )}
+                      </div>
+                    </section>
+                    <div className="pt-4 text-center flex gap-4 justify-center">
+                      <Button
+                        text="Back"
+                        color="black"
+                        size="wide"
+                        icon={false}
+                        type={"button"}
+                        onClick={handleBack}
+                      />
+                      <Button
+                        text="Save and Continue"
+                        color="blue"
+                        size="wide"
+                        icon={false}
+                        type={"submit"}
+                      />
+                    </div>
+                  </form>
+                )}
+              </section>
+            </>
+          ) : currentMainStep === 1 ? (
+            <section className="w-full">
+              <div>
+                <h2 className="text-2xl font-bold block">Step 2</h2>
+
                 <div className="pt-4 text-center flex gap-4 justify-center">
                   <Button
                     text="Back"
@@ -534,19 +592,116 @@ const Page = () => {
                     size="wide"
                     icon={false}
                     type={"button"}
-                    onClick={handleBack}
+                    onClick={handleBackToAccountInfo}
                   />
                   <Button
-                    text="Save and Continue"
+                    text="Continue to Review"
                     color="blue"
                     size="wide"
                     icon={false}
-                    type={"submit"}
+                    type={"button"}
+                    onClick={handleContinueToReview}
                   />
                 </div>
-              </form>
-            )}
-          </section>
+              </div>
+            </section>
+          ) : currentMainStep === 2 ? (
+            <section className="w-full">
+              <div className="flex justify-between items-center w-full mb-6">
+                <h2 className="text-2xl font-bold block">Step 3</h2>
+              </div>
+
+              <div className="pt-4 text-center flex gap-4 justify-center">
+                <Button
+                  text="Back"
+                  color="black"
+                  size="wide"
+                  icon={false}
+                  type={"button"}
+                  onClick={handleBackToLoanInfo}
+                />
+                <Button
+                  text="Continue to Disburse"
+                  color="blue"
+                  size="wide"
+                  icon={false}
+                  type={"button"}
+                  onClick={handleContinueToDisburse}
+                />
+              </div>
+            </section>
+          ) : (
+            <section className="w-full">
+              <div className="flex justify-between items-center w-full mb-6">
+                <h2 className="text-2xl font-bold block">Disburse</h2>
+              </div>
+
+              <div className="rounded-lg p-6 text-center">
+                <div className="mb-6">
+                  <svg
+                    className="mx-auto h-16 w-16 text-green-500 mb-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    Application Approved!
+                  </h3>
+                  <p className="text-gray-300 mb-4">
+                    Your loan has been approved and funds will be disbursed
+                    shortly.
+                  </p>
+                </div>
+
+                <div className="rounded-lg p-4 mb-6">
+                  <p className="text-sm text-gray-400 mb-2">
+                    Disbursement Amount
+                  </p>
+                  <p className="text-3xl font-bold text-white">$5,000.00</p>
+                </div>
+
+                <div className="text-left space-y-2 mb-6">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Processing Time:</span>
+                    <span className="text-white">1-2 business days</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Account:</span>
+                    <span className="text-white">****1234</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Status:</span>
+                    <span className="text-green-500">Processing</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 flex gap-4 justify-center">
+                  <Button
+                    text="Back to Review"
+                    color="black"
+                    size="wide"
+                    icon={false}
+                    type={"button"}
+                    onClick={handleBackToReview}
+                  />
+                  <Button
+                    text="Download Receipt"
+                    color="blue"
+                    size="wide"
+                    icon={false}
+                    type={"button"}
+                  />
+                </div>
+              </div>
+            </section>
+          )}
         </section>
       </section>
 
