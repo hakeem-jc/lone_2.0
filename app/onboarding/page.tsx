@@ -281,7 +281,7 @@ const Page = () => {
                       </label>
                     </div>
 
-                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                    <div className="grid gap-10 mb-4 sm:grid-cols-2">
                       <Input
                         id="firstName"
                         label="First Name"
