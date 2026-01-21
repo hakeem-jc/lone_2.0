@@ -6,6 +6,7 @@ import Button from "@/app/components/ui/Button";
 import Slider from "@/app/components/ui/Slider";
 import Card from "@/app/components/ui/Card";
 import Footer from "@/app/components/Footer";
+import { getPaymentDates } from "@/app/utils/helper";
 
 type SectionItem = {
   id: number;
@@ -59,34 +60,6 @@ const items: SectionItem[] = [
   },
 ];
 
-/**
- * Calculates the next payment date and final payment date
- * @returns Object with formatted first and last payment dates
- */
-const getPaymentDates = () => {
-  const today = new Date();
-
-  // Get next payment date (1 month from today)
-  const nextPayment = new Date(today);
-  nextPayment.setMonth(nextPayment.getMonth() + 1);
-
-  // Get last payment date (5 months after next payment = 6 months from today)
-  const lastPayment = new Date(nextPayment);
-  lastPayment.setMonth(lastPayment.getMonth() + 5);
-
-  // Format dates as "Month Day" (e.g., "January 15")
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  return {
-    firstPayment: formatDate(nextPayment),
-    lastPayment: formatDate(lastPayment),
-  };
-};
 
 export default function Home() {
   const router = useRouter();
