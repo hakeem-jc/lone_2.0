@@ -17,7 +17,6 @@ interface LoanInfoSectionProps {
 }
 
 export default function LoanInfoSection({
-  onBack,
   onContinue,
 }: LoanInfoSectionProps) {
   const {
