@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/app/components/Header";
 import Button from "@/app/components/ui/Button";
@@ -58,8 +59,48 @@ const items: SectionItem[] = [
   },
 ];
 
+/**
+ * Calculates the next payment date and final payment date
+ * @returns Object with formatted first and last payment dates
+ */
+const getPaymentDates = () => {
+  const today = new Date();
+
+  // Get next payment date (1 month from today)
+  const nextPayment = new Date(today);
+  nextPayment.setMonth(nextPayment.getMonth() + 1);
+
+  // Get last payment date (5 months after next payment = 6 months from today)
+  const lastPayment = new Date(nextPayment);
+  lastPayment.setMonth(lastPayment.getMonth() + 5);
+
+  // Format dates as "Month Day" (e.g., "January 15")
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  return {
+    firstPayment: formatDate(nextPayment),
+    lastPayment: formatDate(lastPayment),
+  };
+};
+
 export default function Home() {
   const router = useRouter();
+
+  const [loanAmount, setLoanAmount] = useState(500);
+
+  // Calculate monthly fee (5% of loan amount)
+  const monthlyFee = loanAmount * 0.05;
+
+  // Calculate monthly payment (loan amount / repayment period  + monthly fee). Default repayment period to five
+  const monthlyPayment = loanAmount / 5 + monthlyFee;
+
+  // Get first and last payment dates
+  const { firstPayment, lastPayment } = getPaymentDates();
 
   return (
     <main className="pt-24">
@@ -151,24 +192,31 @@ export default function Home() {
           <div className="flex flex-col gap-12 items-center text-center max-w-2xl">
             <h1 className="text-4xl">Take a Sneak Peak at Our Rates</h1>
             <div className="w-8/12">
-              <Slider />
+              <Slider value={loanAmount} onChange={setLoanAmount} />
             </div>
             <div className="flex flex-col md:flex-row gap-6">
               <Card
                 title="Payment Time: Instant"
-                description="Once you’re approved and you accept a loan, you’ll have the money in your account in seconds."
+                description="Once you're approved and you accept a loan, you'll have the money in your account in seconds."
               />
 
               <Card
-                title="Monthly Fee: $200"
+                title={`Monthly Fee: $${monthlyFee.toFixed(2)}`}
                 description="This is a monthly fee charged for the service of the loan, priced at 20% of the loan amount"
               />
 
               <Card
-                title="Monthly Payment: $1,200"
+                title={`Monthly Payment: $${monthlyPayment.toFixed(2)}`}
                 description="The total monthly payment you make. No hidden fees, no surprises"
               />
             </div>
+          </div>
+
+          <div className="w-full max-w-2xl text-left text-gray-300 mt-8 mb-8 px-4">
+            <p className="text-base leading-relaxed">
+              So you'd make your first payment of ${monthlyPayment.toFixed(2)}{" "}
+              on {firstPayment} and your last on {lastPayment}.
+            </p>
           </div>
 
           <div className="p-10">
