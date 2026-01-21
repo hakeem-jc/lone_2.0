@@ -46,7 +46,7 @@ const Page = () => {
   return (
     <main className="pt-24">
       <Header />
-      <section className="flex flex-col gap-10 p-4">
+      <section className="flex flex-col gap-10">
         <Stepper
           steps={[
             {
@@ -72,7 +72,7 @@ const Page = () => {
           ]}
         />
 
-        <section className="flex gap-15 p-4">
+        <section className="flex gap-15">
           {currentMainStep === 0 && (
             <AccountInfoSection onComplete={handleAccountInfoComplete} />
           )}

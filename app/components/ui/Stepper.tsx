@@ -12,7 +12,7 @@ type StepperProps = {
 
 const Stepper: React.FC<StepperProps> = ({ steps }) => {
   return (
-    <ol className="flex justify-center items-center w-full flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0 rtl:space-x-reverse">
+    <ol className="flex justify-center items-center w-full flex-col p-4 sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0 rtl:space-x-reverse">
       {steps.map((step, index) => (
         <li
           key={index}
