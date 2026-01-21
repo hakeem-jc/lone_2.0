@@ -8,6 +8,7 @@ import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
 import Footer from "@/app/components/Footer";
+import Slider from "@/app/components/ui/Slider";
 
 type FormValues = {
   prefill: boolean;
@@ -162,7 +163,7 @@ const Page = () => {
   };
 
   const onSubmitThree: SubmitHandler<FormValuesThree> = (
-    data: FormValuesThree
+    data: FormValuesThree,
   ) => {
     console.log(data);
     setFormData((prev) => ({ ...prev, stepThree: data }));
@@ -583,7 +584,14 @@ const Page = () => {
           ) : currentMainStep === 1 ? (
             <section className="w-full">
               <div>
-                <h2 className="text-2xl font-bold block">Step 2</h2>
+                <div className="bg-secondary p-10">
+                  <h2 className="text-3xl">
+                    Congratulations! You’ve been Approved for a Pay Advance Loan
+                  </h2>
+                  <form action="">
+                    <Slider />
+                  </form>
+                </div>
 
                 <div className="pt-4 text-center flex gap-4 justify-center">
                   <Button
