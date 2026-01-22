@@ -29,7 +29,7 @@ export default function ReviewSection({
 
   // Get payment dates
   const { firstPayment, lastPayment } = getPaymentDates(
-    loanInfo?.repaymentDate ? new Date(loanInfo.repaymentDate) : undefined
+    loanInfo?.repaymentDate ? new Date(loanInfo.repaymentDate) : undefined,
   );
 
   const handleContinue = () => {
@@ -83,9 +83,7 @@ export default function ReviewSection({
               </div>
               <div className="flex justify-between items-center border-b border-gray-700 pb-3">
                 <span className="text-gray-400">First Payment Due Date:</span>
-                <span className="text-white font-semibold">
-                  {firstPayment}
-                </span>
+                <span className="text-white font-semibold">{firstPayment}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-700 pb-3">
                 <span className="text-gray-400">Length of Loan:</span>
@@ -95,9 +93,7 @@ export default function ReviewSection({
               </div>
               <div className="flex justify-between items-center border-b border-gray-700 pb-3">
                 <span className="text-gray-400">Final Payment Due Date:</span>
-                <span className="text-white font-semibold">
-                  {lastPayment}
-                </span>
+                <span className="text-white font-semibold">{lastPayment}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-700 pb-3">
                 <span className="text-gray-400">Effective Annual Rate:</span>
@@ -149,8 +145,8 @@ export default function ReviewSection({
                 <div className="flex justify-between md:block">
                   <span className="text-gray-400">Address:</span>
                   <span className="text-white md:block">
-                    {accountInfo.street}, {accountInfo.city}, {accountInfo.state}{" "}
-                    {accountInfo.zipcode}
+                    {accountInfo.street}, {accountInfo.city},{" "}
+                    {accountInfo.state} {accountInfo.zipcode}
                   </span>
                 </div>
                 <div className="flex justify-between md:block">
@@ -162,6 +158,14 @@ export default function ReviewSection({
               </div>
             )}
           </div>
+
+          <p className="text-gray-400 mb-6">
+            <strong className="text-white">Note:</strong> The loan amount will
+            be sent to the account ending with the last 4 digits shown above
+            here.<br/>The repayment amount will also be automatically taken from this
+            account each month on the repayment date chosen or the prior
+            business date if this date falls on a holiday or weekend.
+          </p>
         </div>
 
         <div className="pt-4 text-center flex gap-4 justify-center">
