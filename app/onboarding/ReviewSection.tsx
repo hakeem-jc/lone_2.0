@@ -7,10 +7,15 @@ interface ReviewSectionProps {
   onContinue: () => void;
 }
 
-export default function ReviewSection({ onBack, onContinue }: ReviewSectionProps) {
+export default function ReviewSection({
+  onBack,
+  onContinue,
+}: ReviewSectionProps) {
   const accountInfo = useLoanStore((state) => state.accountInfo);
   const loanInfo = useLoanStore((state) => state.loanInfo);
-  const getCompleteApplication = useLoanStore((state) => state.getCompleteApplication);
+  const getCompleteApplication = useLoanStore(
+    (state) => state.getCompleteApplication,
+  );
 
   const handleContinue = () => {
     // Get complete application data for final submission
@@ -21,11 +26,11 @@ export default function ReviewSection({ onBack, onContinue }: ReviewSectionProps
 
   return (
     <section className="w-full">
-      <div className="flex justify-between items-center w-full mb-6">
-        <h2 className="text-2xl font-bold block">Review</h2>
+      <div className="bg-secondary p-10 flex flex-col">
+        <h2 className="text-3xl">Review Your Loan Details</h2>
       </div>
 
-      <div className="bg-gray-800 rounded-lg p-6">
+      <div className="p-6">
         <p className="text-gray-300 mb-4">
           Please review your application details before proceeding.
         </p>
@@ -39,7 +44,8 @@ export default function ReviewSection({ onBack, onContinue }: ReviewSectionProps
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <p className="text-gray-400">Name:</p>
                 <p className="text-white">
-                  {accountInfo.firstName} {accountInfo.middleName} {accountInfo.lastName}
+                  {accountInfo.firstName} {accountInfo.middleName}{" "}
+                  {accountInfo.lastName}
                 </p>
                 <p className="text-gray-400">Email:</p>
                 <p className="text-white">{accountInfo.emailAddress}</p>
