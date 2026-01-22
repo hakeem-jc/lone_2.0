@@ -1,9 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useLoanStore, AccountInfoData } from "@/app/store/loanStore";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
+
 
 type FormValues = {
   prefill: boolean;
@@ -41,6 +43,20 @@ interface AccountInfoSectionProps {
 }
 
 export default function AccountInfoSection({ onComplete }: AccountInfoSectionProps) {
+  // Get data from Zustand store
+  const storedAccountInfo = useLoanStore((state) => state.accountInfo);
+  const storedKYC = useLoanStore((state) => state.kyc);
+  const storedPrivacyPolicy = useLoanStore((state) => state.privacyPolicy);
+  const currentAccountInfoStep = useLoanStore((state) => state.currentAccountInfoStep);
+  const setCurrentAccountInfoStep = useLoanStore((state) => state.setCurrentAccountInfoStep);
+
+  const [currentPage, setCurrentPage] = useState(currentAccountInfoStep);
+  
+  // Sync with Zustand when currentPage changes
+  useEffect(() => {
+    setCurrentAccountInfoStep(currentPage);
+  }, [currentPage, setCurrentAccountInfoStep]);
+
   const {
     register,
     handleSubmit,
@@ -48,6 +64,7 @@ export default function AccountInfoSection({ onComplete }: AccountInfoSectionPro
     setValue,
   } = useForm<FormValues>({
     mode: "onBlur",
+    defaultValues: storedAccountInfo || {}, // Pre-fill from Zustand
   });
 
   const {
@@ -67,7 +84,7 @@ export default function AccountInfoSection({ onComplete }: AccountInfoSectionPro
     mode: "onBlur",
   });
 
-  const [currentPage, setCurrentPage] = useState("one");
+  // const [currentPage, setCurrentPage] = useState("one");
   const [selectedFileName, setSelectedFileName] = useState<string>("");
   const [formData, setFormData] = useState<StoredFormData>({});
   const [isPrefilled, setIsPrefilled] = useState(false);

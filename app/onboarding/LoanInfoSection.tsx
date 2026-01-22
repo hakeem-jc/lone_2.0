@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useLoanStore, LoanInfoData } from "@/app/store/loanStore";
 import Button from "@/app/components/ui/Button";
 import Slider from "@/app/components/ui/Slider";
 import Input from "@/app/components/ui/Input";
@@ -19,6 +20,9 @@ interface LoanInfoSectionProps {
 }
 
 export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
+
+  const storedLoanInfo = useLoanStore((state) => state.loanInfo);
+
   const {
     register,
     handleSubmit,
@@ -27,7 +31,7 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
     watch,
   } = useForm<LoanFormValues>({
     mode: "onBlur",
-    defaultValues: {
+    defaultValues: storedLoanInfo || {
       loanAmount: 500,
       repaymentDate: "",
     },
