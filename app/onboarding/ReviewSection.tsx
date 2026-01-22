@@ -1,7 +1,9 @@
 "use client";
+import { useState } from "react";
 import { useLoanStore } from "@/app/store/loanStore";
 import Button from "@/app/components/ui/Button";
 import { getPaymentDates } from "@/app/utils/helper";
+import Modal from "@/app/components/ui/Modal";
 
 interface ReviewSectionProps {
   onBack: () => void;
@@ -37,6 +39,18 @@ export default function ReviewSection({
     const completeData = getCompleteApplication();
     console.log("Complete application:", completeData);
     onContinue();
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAccept = () => {
+    // TODO - Add disbursement API call here
+    handleContinue();
+  };
+
+  const handleDecline = () => {
+    // Just close the modal without submitting
+    console.log("User declined");
   };
 
   return (
@@ -162,7 +176,9 @@ export default function ReviewSection({
           <p className="text-gray-400 mb-6">
             <strong className="text-white">Note:</strong> The loan amount will
             be sent to the account ending with the last 4 digits shown above
-            here.<br/>The repayment amount will also be automatically taken from this
+            here.
+            <br />
+            The repayment amount will also be automatically taken from this
             account each month on the repayment date chosen or the prior
             business date if this date falls on a holiday or weekend.
           </p>
@@ -183,10 +199,36 @@ export default function ReviewSection({
             size="wide"
             icon={false}
             type={"button"}
-            onClick={handleContinue}
+            onClick={() => setIsModalOpen(true)}
           />
         </div>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAccept={handleAccept}
+        onDecline={handleDecline}
+        title="Accept Terms and Conditions"
+      >
+        <>
+          <p className="leading-relaxed text-gray-300">
+            By accepting these terms and conditions, you agree to the following
+            loan agreement terms. This agreement outlines your responsibilities
+            as a borrower and our commitments as a lender.
+          </p>
+          <p className="leading-relaxed text-gray-300">
+            You acknowledge that the loan amount, interest rate, and repayment
+            schedule have been clearly communicated to you. Late payments may
+            result in additional fees and could affect your credit score.
+          </p>
+          <p className="leading-relaxed text-gray-300">
+            Please ensure you have read and understood all terms before
+            proceeding. By clicking "I Accept," you are entering into a legally
+            binding agreement.
+          </p>
+        </>
+      </Modal>
     </section>
   );
 }
