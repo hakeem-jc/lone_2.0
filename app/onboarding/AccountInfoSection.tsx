@@ -218,7 +218,7 @@ export default function AccountInfoSection({ onComplete }: AccountInfoSectionPro
         <TimelineStepper steps={steps} />
       </div>
 
-      <section className="w-full">
+      <section className="w-full p-8">
         {currentPage === "one" && (
           <form onSubmit={handleSubmit(onSubmitOne)}>
             <div className="flex justify-between items-center w-full">

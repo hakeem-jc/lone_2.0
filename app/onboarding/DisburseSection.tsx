@@ -11,8 +11,8 @@ export default function DisburseSection({ onBack }: DisburseSectionProps) {
 
   return (
     <section className="w-full">
-      <div className="flex justify-between items-center w-full mb-6">
-        <h2 className="text-2xl font-bold block">Disburse</h2>
+      <div className="bg-secondary p-10 flex flex-col">
+        <h2 className="text-3xl">Disburse</h2>
       </div>
 
       <div className="rounded-lg p-6 text-center">
