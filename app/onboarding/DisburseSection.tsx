@@ -60,14 +60,6 @@ export default function DisburseSection({ onBack }: DisburseSectionProps) {
 
         <div className="pt-4 flex gap-4 justify-center">
           <Button
-            text="Back to Review"
-            color="black"
-            size="wide"
-            icon={false}
-            type={"button"}
-            onClick={onBack}
-          />
-          <Button
             text="Reset Application"
             color="blue"
             size="wide"

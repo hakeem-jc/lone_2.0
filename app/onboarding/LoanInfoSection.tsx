@@ -41,8 +41,8 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
   const loanAmount = watch("loanAmount") || 500;
   const repaymentDate = watch("repaymentDate");
 
-  // Calculate monthly fee (5% of loan amount)
-  const monthlyFee = loanAmount * 0.05;
+  // Calculate monthly fee (20% of loan amount)
+  const monthlyFee = loanAmount * 0.2;
 
   // Calculate monthly payment (loan amount / repayment period + monthly fee). Default repayment period to 5
   const monthlyPayment = loanAmount / 5 + monthlyFee;
