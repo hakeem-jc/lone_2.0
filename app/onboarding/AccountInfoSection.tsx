@@ -6,7 +6,6 @@ import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
 
-
 type FormValues = {
   prefill: boolean;
   firstName: string;
@@ -42,16 +41,22 @@ interface AccountInfoSectionProps {
   onComplete: (data: StoredFormData) => void;
 }
 
-export default function AccountInfoSection({ onComplete }: AccountInfoSectionProps) {
+export default function AccountInfoSection({
+  onComplete,
+}: AccountInfoSectionProps) {
   // Get data from Zustand store
   const storedAccountInfo = useLoanStore((state) => state.accountInfo);
   const storedKYC = useLoanStore((state) => state.kyc);
   const storedPrivacyPolicy = useLoanStore((state) => state.privacyPolicy);
-  const currentAccountInfoStep = useLoanStore((state) => state.currentAccountInfoStep);
-  const setCurrentAccountInfoStep = useLoanStore((state) => state.setCurrentAccountInfoStep);
+  const currentAccountInfoStep = useLoanStore(
+    (state) => state.currentAccountInfoStep,
+  );
+  const setCurrentAccountInfoStep = useLoanStore(
+    (state) => state.setCurrentAccountInfoStep,
+  );
 
   const [currentPage, setCurrentPage] = useState(currentAccountInfoStep);
-  
+
   // Sync with Zustand when currentPage changes
   useEffect(() => {
     setCurrentAccountInfoStep(currentPage);
@@ -169,7 +174,7 @@ export default function AccountInfoSection({ onComplete }: AccountInfoSectionPro
   };
 
   const onSubmitThree: SubmitHandler<FormValuesThree> = (
-    data: FormValuesThree
+    data: FormValuesThree,
   ) => {
     console.log(data);
     const completeFormData = { ...formData, stepThree: data };
@@ -489,31 +494,33 @@ export default function AccountInfoSection({ onComplete }: AccountInfoSectionPro
                 <strong>Monthly Rent / Mortgage Payment:</strong> $
                 {formData.stepOne?.monthlyRent}
               </p>
-              <div className="flex items-center mt-4">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  {...registerStepThree("privacyPolicy", {
-                    required: "You must accept the privacy policy",
-                  })}
-                  className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
-                />
-                <label
-                  htmlFor="privacyPolicy"
-                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  I've read the{" "}
-                  <span className="font-semibold cursor-pointer">
-                    privacy policy
-                  </span>{" "}
-                  and consent to identity verification
-                </label>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center mt-4">
+                  <input
+                    id="default-checkbox"
+                    type="checkbox"
+                    {...registerStepThree("privacyPolicy", {
+                      required: "You must accept the privacy policy",
+                    })}
+                    className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+                  />
+                  <label
+                    htmlFor="privacyPolicy"
+                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    I've read the{" "}
+                    <span className="font-semibold cursor-pointer">
+                      privacy policy
+                    </span>{" "}
+                    and consent to identity verification
+                  </label>
+                </div>
+                {errorsStepThree.privacyPolicy && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errorsStepThree.privacyPolicy.message}
+                  </p>
+                )}
               </div>
-              {errorsStepThree.privacyPolicy && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errorsStepThree.privacyPolicy.message}
-                </p>
-              )}
             </section>
             <div className="pt-4 text-center flex gap-4 justify-center">
               <Button
