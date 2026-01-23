@@ -59,7 +59,7 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-primary"
+      className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-primary/50 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
@@ -108,14 +108,14 @@ export default function Modal({
               <button
                 onClick={handleAccept}
                 type="button"
-                className="text-white bg-blue-600 border border-transparent hover:bg-blue-700 focus:ring-4 focus:ring-blue-800 shadow-sm font-medium rounded-lg text-sm px-4 py-2.5 focus:outline-none transition-colors"
+                className="text-white bg-blue-600 border border-transparent hover:bg-blue-700 focus:ring-4 focus:ring-blue-800 shadow-sm font-medium rounded-lg text-sm px-4 py-2.5 focus:outline-none transition-colors cursor-pointer"
               >
                 I accept
               </button>
               <button
                 onClick={handleDecline}
                 type="button"
-                className="text-gray-300 bg-gray-700 border border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-4 focus:ring-gray-600 shadow-sm font-medium rounded-lg text-sm px-4 py-2.5 focus:outline-none transition-colors"
+                className="text-gray-300 bg-gray-700 border border-gray-600 hover:bg-gray-600 hover:text-white focus:ring-4 focus:ring-gray-600 shadow-sm font-medium rounded-lg text-sm px-4 py-2.5 focus:outline-none transition-colors cursor-pointer"
               >
                 Decline
               </button>
