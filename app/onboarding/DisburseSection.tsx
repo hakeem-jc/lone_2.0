@@ -1,11 +1,14 @@
 "use client";
 import Button from "@/app/components/ui/Button";
+import { useLoanStore } from "@/app/store/loanStore";
 
 interface DisburseSectionProps {
   onBack: () => void;
 }
 
 export default function DisburseSection({ onBack }: DisburseSectionProps) {
+  const resetApplication = useLoanStore((state) => state.resetApplication);
+
   return (
     <section className="w-full">
       <div className="flex justify-between items-center w-full mb-6">
@@ -65,11 +68,12 @@ export default function DisburseSection({ onBack }: DisburseSectionProps) {
             onClick={onBack}
           />
           <Button
-            text="Download Receipt"
+            text="Reset Application"
             color="blue"
             size="wide"
             icon={false}
             type={"button"}
+            onClick={resetApplication}
           />
         </div>
       </div>
