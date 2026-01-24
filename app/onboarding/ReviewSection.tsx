@@ -73,17 +73,17 @@ export default function ReviewSection({
             <div className="space-y-3">
               <div className="flex justify-between items-center border-b border-gray-700 pb-3">
                 <span className="text-gray-400">Monthly Payment Amount:</span>
-                <span className="text-white font-semibold text-lg">
+                <span className="text-white font-semibold">
                   ${monthlyPayment.toFixed(2)}
                 </span>
               </div>
-              <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+              <div className="flex justify-between items-center  pb-3">
                 <span className="text-gray-400">Amount You Will Receive:</span>
-                <span className="text-white font-semibold text-lg">
+                <span className="text-white font-semibold">
                   ${amountYouReceive.toFixed(2)}
                 </span>
               </div>
-              <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+              <div className="flex justify-between items-center pb-3">
                 <span className="text-gray-400">Total Admin Fee:</span>
                 <span className="text-white font-semibold">
                   ${totalAdminFee.toFixed(2)}
@@ -95,21 +95,21 @@ export default function ReviewSection({
                   ${totalOutstanding.toFixed(2)}
                 </span>
               </div>
-              <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+              <div className="flex justify-between items-center pb-3">
                 <span className="text-gray-400">First Payment Due Date:</span>
                 <span className="text-white font-semibold">{firstPayment}</span>
               </div>
-              <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+              <div className="flex justify-between items-center pb-3">
                 <span className="text-gray-400">Length of Loan:</span>
                 <span className="text-white font-semibold">
                   {loanTerm} months
                 </span>
               </div>
-              <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+              <div className="flex justify-between items-center pb-3">
                 <span className="text-gray-400">Final Payment Due Date:</span>
                 <span className="text-white font-semibold">{lastPayment}</span>
               </div>
-              <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+              <div className="flex justify-between items-center  pb-3">
                 <span className="text-gray-400">Effective Annual Rate:</span>
                 <span className="text-white font-semibold">0%</span>
               </div>
