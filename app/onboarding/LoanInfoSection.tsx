@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useLoanStore, LoanInfoData } from "@/app/store/loanStore";
+import { useLoanStore } from "@/app/store/loanStore";
 import Button from "@/app/components/ui/Button";
 import Slider from "@/app/components/ui/Slider";
 import Input from "@/app/components/ui/Input";
@@ -12,6 +12,7 @@ import { getPaymentDates } from "@/app/utils/helper";
 type LoanFormValues = {
   loanAmount: number;
   repaymentDate: string;
+  repaymentPeriod: number;
 };
 
 interface LoanInfoSectionProps {
@@ -32,24 +33,27 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
   } = useForm<LoanFormValues>({
     mode: "onBlur",
     defaultValues: storedLoanInfo || {
-      loanAmount: 500,
+      loanAmount: 5000,
       repaymentDate: "",
+      repaymentPeriod: 5,
     },
   });
 
   // Watch form values
-  const loanAmount = watch("loanAmount") || 500;
+  const loanAmount = watch("loanAmount") || 5000;
   const repaymentDate = watch("repaymentDate");
+  const repaymentPeriod = watch("repaymentPeriod");
 
   // Calculate monthly fee (20% of loan amount)
   const monthlyFee = loanAmount * 0.2;
 
   // Calculate monthly payment (loan amount / repayment period + monthly fee). Default repayment period to 5
-  const monthlyPayment = loanAmount / 5 + monthlyFee;
+  const monthlyPayment = loanAmount / repaymentPeriod + monthlyFee;
 
   // Get first and last payment dates based on repayment date or today
   const { firstPayment, lastPayment } = getPaymentDates(
     repaymentDate ? new Date(repaymentDate) : undefined,
+    repaymentPeriod
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,6 +99,15 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
               })}
               error={errors.repaymentDate}
             />
+
+            <Input
+                id="repaymentPeriod"
+                label="Number of Payments (Months)"
+                type="number"
+                placeholder="5"
+                registration={register("repaymentPeriod")}
+                error={errors.repaymentPeriod}
+              />
           </div>
         </div>
 
