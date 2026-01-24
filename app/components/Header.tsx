@@ -2,13 +2,35 @@
 import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/Button";
+import { useLoanStore } from "@/app/store/loanStore";
 
 const Header: FC = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const applicationStarted = useLoanStore((state) => state.applicationStarted);
+  const setApplicationStarted = useLoanStore(
+    (state) => state.setApplicationStarted,
+  );
+  const resetApplication = useLoanStore((state) => state.resetApplication);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleGetStarted = () => {
+    setApplicationStarted(true);
+    router.push("/onboarding");
+  };
+
+  const handleCancelApplication = () => {
+    if (
+      confirm(
+        "Are you sure you want to cancel your application? All progress will be lost.",
+      )
+    ) {
+      resetApplication();
+      router.push("/");
+    }
   };
 
   return (
@@ -21,13 +43,23 @@ const Header: FC = () => {
           <img src="./logo.png" className="h-14" alt="Lone Logo" />
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Button
-            text="Get Started"
-            color="blue"
-            size="small"
-            icon="forward"
-            onClick={() => router.push("/onboarding")}
-          />
+          {applicationStarted ? (
+            <Button
+              text="Cancel Application"
+              color="blue"
+              size="small"
+              icon={false}
+              onClick={handleCancelApplication}
+            />
+          ) : (
+            <Button
+              text="Get Started"
+              color="blue"
+              size="small"
+              icon="forward"
+              onClick={handleGetStarted}
+            />
+          )}
 
           <button
             onClick={toggleNavbar}
@@ -59,8 +91,7 @@ const Header: FC = () => {
             isOpen ? "flex" : "hidden"
           }`}
           id="navbar-sticky"
-        >
-        </div>
+        ></div>
       </div>
     </nav>
   );

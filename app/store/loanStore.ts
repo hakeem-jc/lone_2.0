@@ -33,6 +33,7 @@ export type LoanInfoData = {
 };
 
 type LoanApplicationState = {
+  applicationStarted: boolean;
   accountInfo: AccountInfoData | null;
   kyc: KYCData | null;
   privacyPolicy: PrivacyPolicyData | null;
@@ -43,6 +44,7 @@ type LoanApplicationState = {
   currentAccountInfoStep: string;
   
   // Actions
+  setApplicationStarted: (started: boolean) => void;
   setAccountInfo: (data: AccountInfoData) => void;
   setKYC: (data: KYCData) => void;
   setPrivacyPolicy: (data: PrivacyPolicyData) => void;
@@ -64,6 +66,7 @@ type LoanApplicationState = {
 
 // Initial state
 const initialState = {
+  applicationStarted: false,
   accountInfo: null,
   kyc: null,
   privacyPolicy: null,
@@ -79,6 +82,8 @@ export const useLoanStore = create<LoanApplicationState>()(
       ...initialState,
       
       // Actions
+      setApplicationStarted: (started) => set({ applicationStarted: started }),
+      
       setAccountInfo: (data) => set({ accountInfo: data }),
       
       setKYC: (data) => set({ kyc: data }),
@@ -107,6 +112,7 @@ export const useLoanStore = create<LoanApplicationState>()(
       name: 'loan-application-storage',
       // Optional: Only persist certain fields
       partialize: (state) => ({
+        applicationStarted: state.applicationStarted,
         accountInfo: state.accountInfo,
         kyc: state.kyc,
         privacyPolicy: state.privacyPolicy,

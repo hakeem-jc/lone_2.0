@@ -194,7 +194,7 @@ export default function ReviewSection({
             onClick={onBack}
           />
           <Button
-            text="Continue to Disburse"
+            text="Get Your Loan"
             color="blue"
             size="wide"
             icon={false}
