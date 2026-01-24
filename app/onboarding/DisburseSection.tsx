@@ -46,7 +46,7 @@ export default function DisburseSection({ onBack }: DisburseSectionProps) {
         <div className="text-left space-y-2 mb-6">
           <div className="flex justify-between text-sm">
             <span className="text-gray-400">Processing Time:</span>
-            <span className="text-white">1-2 business days</span>
+            <span className="text-white">Already In Your Account 😉</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-gray-400">Account:</span>
@@ -54,7 +54,7 @@ export default function DisburseSection({ onBack }: DisburseSectionProps) {
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-gray-400">Status:</span>
-            <span className="text-green-500">Processing</span>
+            <span className="text-green-500">Disbursed</span>
           </div>
         </div>
 
