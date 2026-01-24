@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useLoanStore } from "@/app/store/loanStore";
 import Header from "@/app/components/Header";
 import Stepper from "@/app/components/ui/Stepper";
@@ -7,9 +8,11 @@ import AccountInfoSection from "./AccountInfoSection";
 import LoanInfoSection from "./LoanInfoSection";
 import ReviewSection from "./ReviewSection";
 import DisburseSection from "./DisburseSection";
-import Link from "next/link";
+import Modal from "@/app/components/ui/Modal";
+import PrivacyModalContent from "@/app/components/PrivacyModalContent";
 
 const Page = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // Get state and actions from Zustand store
   const currentMainStep = useLoanStore((state) => state.currentMainStep);
   const setCurrentMainStep = useLoanStore((state) => state.setCurrentMainStep);
@@ -103,12 +106,24 @@ const Page = () => {
       <div className="text-center my-10">
         <p>
           We'll never share your details. See our{" "}
-          <Link href="/privacy_policy" className="font-semibold cursor-pointer">
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="font-semibold cursor-pointer text-white hover:underline"
+          >
             Privacy Policy
-          </Link>
+          </button>
         </p>
       </div>
       <Footer />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Lone Privacy Policy"
+        showFooter={false}
+      >
+        <PrivacyModalContent />
+      </Modal>
     </main>
   );
 };

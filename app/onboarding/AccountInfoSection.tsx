@@ -5,7 +5,8 @@ import { useLoanStore } from "@/app/store/loanStore";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
-import Link from "next/link";
+import Modal from "@/app/components/ui/Modal";
+import PrivacyModalContent from "@/app/components/PrivacyModalContent";
 
 type FormValues = {
   prefill: boolean;
@@ -45,10 +46,11 @@ interface AccountInfoSectionProps {
 export default function AccountInfoSection({
   onComplete,
 }: AccountInfoSectionProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // Get data from Zustand store
   const storedAccountInfo = useLoanStore((state) => state.accountInfo);
-  const storedKYC = useLoanStore((state) => state.kyc);
-  const storedPrivacyPolicy = useLoanStore((state) => state.privacyPolicy);
+  // const storedKYC = useLoanStore((state) => state.kyc);
+  // const storedPrivacyPolicy = useLoanStore((state) => state.privacyPolicy);
   const currentAccountInfoStep = useLoanStore(
     (state) => state.currentAccountInfoStep,
   );
@@ -583,9 +585,13 @@ export default function AccountInfoSection({
                     className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     I've read the{" "}
-                    <Link href="/privacy_policy" className="font-semibold cursor-pointe">
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(true)}
+                      className="font-semibold cursor-pointer text-white hover:underline"
+                    >
                       Privacy Policy
-                    </Link>{" "}
+                    </button>{" "}
                     and consent to identity verification
                   </label>
                 </div>
@@ -616,6 +622,15 @@ export default function AccountInfoSection({
           </form>
         )}
       </section>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Lone Privacy Policy"
+        showFooter={false}
+      >
+        <PrivacyModalContent />
+      </Modal>
     </>
   );
 }

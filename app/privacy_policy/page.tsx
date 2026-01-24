@@ -77,9 +77,7 @@ const Page = () => {
                 <li>To assess your creditworthiness and ability to repay</li>
                 <li>To communicate with you about your application and loan</li>
                 <li>To comply with legal and regulatory requirements</li>
-                <li>
-                  To protect against fraud and unauthorized transactions
-                </li>
+                <li>To protect against fraud and unauthorized transactions</li>
                 <li>To improve our services and customer experience</li>
                 <li>
                   To send you administrative information, such as updates to our
@@ -105,9 +103,7 @@ const Page = () => {
                   Perform a hard inquiry on your credit report, which may
                   temporarily affect your credit score
                 </li>
-                <li>
-                  Verify the information you provided in your application
-                </li>
+                <li>Verify the information you provided in your application</li>
                 <li>
                   Share your credit information with our lending partners if
                   necessary
@@ -125,7 +121,9 @@ const Page = () => {
               </p>
               <ul className="list-disc ml-6 space-y-2">
                 <li>
-                  <strong className="text-white">With Service Providers:</strong>{" "}
+                  <strong className="text-white">
+                    With Service Providers:
+                  </strong>{" "}
                   We may share your information with third-party vendors and
                   service providers who perform services on our behalf, such as
                   payment processing, data analysis, email delivery, and credit
@@ -198,7 +196,9 @@ const Page = () => {
                   can request copies of your personal information.
                 </li>
                 <li>
-                  <strong className="text-white">Right to Rectification:</strong>{" "}
+                  <strong className="text-white">
+                    Right to Rectification:
+                  </strong>{" "}
                   You can request correction of inaccurate or incomplete
                   information.
                 </li>
@@ -214,7 +214,9 @@ const Page = () => {
                   You can request that we limit how we use your information.
                 </li>
                 <li>
-                  <strong className="text-white">Right to Data Portability:</strong>{" "}
+                  <strong className="text-white">
+                    Right to Data Portability:
+                  </strong>{" "}
                   You can request transfer of your information to another
                   organization.
                 </li>
@@ -336,7 +338,6 @@ const Page = () => {
           </div>
         </div>
       </section>
-
       <Footer />
     </main>
   );

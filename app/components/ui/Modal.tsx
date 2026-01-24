@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -74,7 +74,7 @@ export default function Modal({
             <button
               type="button"
               onClick={onClose}
-              className="text-gray-400 bg-transparent hover:bg-gray-700 hover:text-white rounded-lg text-sm w-9 h-9 ms-auto inline-flex justify-center items-center transition-colors"
+              className="text-gray-400 bg-transparent hover:bg-gray-700 hover:text-white rounded-lg text-sm w-9 h-9 ms-auto inline-flex justify-center items-center transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <svg
@@ -98,7 +98,7 @@ export default function Modal({
           </div>
 
           {/* Modal body */}
-          <div className="space-y-4 md:space-y-6 py-4 md:py-6">
+          <div className="space-y-4 overflow-auto max-h-96 md:space-y-6 py-4 md:py-6">
             {children}
           </div>
 
