@@ -262,7 +262,7 @@ export default function AccountInfoSection({
 
   return (
     <>
-      <div>
+      <div className="hidden md:block">
         <TimelineStepper steps={steps} />
       </div>
 
