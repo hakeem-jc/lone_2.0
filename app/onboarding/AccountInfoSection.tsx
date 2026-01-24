@@ -233,13 +233,23 @@ export default function AccountInfoSection({
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(file);
 
-        // Set the file in the form
+        // Get the file input element
         const fileInput = document.querySelector(
           'input[type="file"]',
         ) as HTMLInputElement;
+
         if (fileInput) {
+          // Set the files on the input element
           fileInput.files = dataTransfer.files;
+
+          // IMPORTANT: Manually trigger the onChange event for react-hook-form
+          const event = new Event("change", { bubbles: true });
+          fileInput.dispatchEvent(event);
+
+          // Update the UI
           setSelectedFileName(file.name);
+
+          // Trigger validation
           await triggerStepTwo("file");
         }
 
@@ -252,10 +262,17 @@ export default function AccountInfoSection({
       const fileInput = document.querySelector(
         'input[type="file"]',
       ) as HTMLInputElement;
+
       if (fileInput) {
         fileInput.value = "";
+
+        // Trigger change event for react-hook-form
+        const event = new Event("change", { bubbles: true });
+        fileInput.dispatchEvent(event);
+
         setSelectedFileName("");
       }
+
       setIsFilePrefilled(false);
     }
   };
