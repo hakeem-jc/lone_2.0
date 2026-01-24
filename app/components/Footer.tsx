@@ -1,5 +1,6 @@
 "use client";
 import { FC } from "react";
+import Link from "next/link";
 
 const Footer: FC = () => {
   return (
@@ -63,9 +64,9 @@ const Footer: FC = () => {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="/" className="hover:underline">
+                  <Link href="/privacy_policy" className="hover:underline">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="/" className="hover:underline">

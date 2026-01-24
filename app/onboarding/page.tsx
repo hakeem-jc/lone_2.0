@@ -7,6 +7,7 @@ import AccountInfoSection from "./AccountInfoSection";
 import LoanInfoSection from "./LoanInfoSection";
 import ReviewSection from "./ReviewSection";
 import DisburseSection from "./DisburseSection";
+import Link from "next/link";
 
 const Page = () => {
   // Get state and actions from Zustand store
@@ -78,21 +79,21 @@ const Page = () => {
           {currentMainStep === 0 && (
             <AccountInfoSection onComplete={handleAccountInfoComplete} />
           )}
-          
+
           {currentMainStep === 1 && (
             <LoanInfoSection
               onBack={handleBackToAccountInfo}
               onContinue={handleLoanInfoComplete}
             />
           )}
-          
+
           {currentMainStep === 2 && (
             <ReviewSection
               onBack={handleBackToLoanInfo}
               onContinue={handleContinueToDisburse}
             />
           )}
-          
+
           {currentMainStep === 3 && (
             <DisburseSection onBack={handleBackToReview} />
           )}
@@ -102,7 +103,9 @@ const Page = () => {
       <div className="text-center my-10">
         <p>
           We'll never share your details. See our{" "}
-          <span className="font-semibold cursor-pointer">Privacy Policy</span>.
+          <Link href="/privacy_policy" className="font-semibold cursor-pointer">
+            Privacy Policy
+          </Link>
         </p>
       </div>
       <Footer />

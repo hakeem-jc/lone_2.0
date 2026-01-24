@@ -5,6 +5,7 @@ import { useLoanStore } from "@/app/store/loanStore";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
+import Link from "next/link";
 
 type FormValues = {
   prefill: boolean;
@@ -582,9 +583,9 @@ export default function AccountInfoSection({
                     className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     I've read the{" "}
-                    <span className="font-semibold cursor-pointer">
-                      privacy policy
-                    </span>{" "}
+                    <Link href="/privacy_policy" className="font-semibold cursor-pointe">
+                      Privacy Policy
+                    </Link>{" "}
                     and consent to identity verification
                   </label>
                 </div>
