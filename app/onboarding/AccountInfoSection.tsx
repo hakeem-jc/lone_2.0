@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useLoanStore, AccountInfoData } from "@/app/store/loanStore";
+import { useLoanStore } from "@/app/store/loanStore";
 import TimelineStepper from "@/app/components/ui/TimelineStepper";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
@@ -217,6 +217,49 @@ export default function AccountInfoSection({
     }
   };
 
+  const [isFilePrefilled, setIsFilePrefilled] = useState(false);
+
+  const prefillFile = async () => {
+    if (!isFilePrefilled) {
+      try {
+        // Fetch the demo file from public folder
+        const response = await fetch("/demo-id.png");
+        const blob = await response.blob();
+
+        // Create a File object from the blob
+        const file = new File([blob], "demo-id.png", { type: blob.type });
+
+        // Create a FileList-like object
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        // Set the file in the form
+        const fileInput = document.querySelector(
+          'input[type="file"]',
+        ) as HTMLInputElement;
+        if (fileInput) {
+          fileInput.files = dataTransfer.files;
+          setSelectedFileName(file.name);
+          await triggerStepTwo("file");
+        }
+
+        setIsFilePrefilled(true);
+      } catch (error) {
+        console.error("Error loading demo file:", error);
+      }
+    } else {
+      // Clear the file
+      const fileInput = document.querySelector(
+        'input[type="file"]',
+      ) as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = "";
+        setSelectedFileName("");
+      }
+      setIsFilePrefilled(false);
+    }
+  };
+
   return (
     <>
       <div>
@@ -400,6 +443,19 @@ export default function AccountInfoSection({
               <h2 className="text-lg block">
                 Identity Verification / Know Your Customer
               </h2>
+
+              <label className="inline-flex items-center mb-5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="sr-only peer"
+                  checked={isFilePrefilled}
+                  onChange={prefillFile}
+                />
+                <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Prefill with Demo Data
+                </span>
+              </label>
             </div>
 
             <div className="mb-6">
