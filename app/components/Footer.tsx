@@ -69,8 +69,8 @@ const Footer: FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <a href="/" className="hover:underline">
-                    Terms &amp; Conditions
+                  <a href="/tos" className="hover:underline">
+                    Terms of Service
                   </a>
                 </li>
               </ul>
