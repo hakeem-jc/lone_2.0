@@ -7,6 +7,7 @@ import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
 import Modal from "@/app/components/ui/Modal";
 import PrivacyModalContent from "@/app/components/PrivacyModalContent";
+import DatePickerInput from "@/app/components/ui/DatePickerInput";
 
 type FormValues = {
   prefill: boolean;
@@ -47,10 +48,7 @@ export default function AccountInfoSection({
   onComplete,
 }: AccountInfoSectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // Get data from Zustand store
   const storedAccountInfo = useLoanStore((state) => state.accountInfo);
-  // const storedKYC = useLoanStore((state) => state.kyc);
-  // const storedPrivacyPolicy = useLoanStore((state) => state.privacyPolicy);
   const currentAccountInfoStep = useLoanStore(
     (state) => state.currentAccountInfoStep,
   );
@@ -70,9 +68,10 @@ export default function AccountInfoSection({
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm<FormValues>({
     mode: "onBlur",
-    defaultValues: storedAccountInfo || {}, // Pre-fill from Zustand
+    defaultValues: storedAccountInfo || {},
   });
 
   const {
@@ -92,7 +91,6 @@ export default function AccountInfoSection({
     mode: "onBlur",
   });
 
-  // const [currentPage, setCurrentPage] = useState("one");
   const [selectedFileName, setSelectedFileName] = useState<string>("");
   const [formData, setFormData] = useState<StoredFormData>({});
   const [isPrefilled, setIsPrefilled] = useState(false);
@@ -339,14 +337,12 @@ export default function AccountInfoSection({
                 error={errors.lastName}
               />
 
-              <Input
-                id="dateOfBirth"
+              <DatePickerInput
+                name="dateOfBirth"
+                control={control}
                 label="Date of Birth"
-                type="date"
-                registration={register("dateOfBirth", {
-                  required: "Date of birth is required",
-                })}
                 error={errors.dateOfBirth}
+                required
               />
 
               <Input
