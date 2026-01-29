@@ -8,6 +8,7 @@ import Button from "@/app/components/ui/Button";
 import Modal from "@/app/components/ui/Modal";
 import PrivacyModalContent from "@/app/components/PrivacyModalContent";
 import DatePickerInput from "@/app/components/ui/DatePickerInput";
+import Select from "@/app/components/ui/Select";
 
 type FormValues = {
   prefill: boolean;
@@ -417,29 +418,21 @@ export default function AccountInfoSection({
                 error={errors.zipcode}
               />
 
-              <div>
-                <label
-                  htmlFor="housingStatus"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
-                  Housing Status
-                </label>
-                <select
-                  id="housingStatus"
-                  className="bg-secondary border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  {...register("housingStatus")}
-                >
-                  <option value="">Select</option>
-                  <option value="rent">Rent</option>
-                  <option value="own">Own</option>
-                  <option value="with_family">With Family</option>
-                </select>
-                {errors.housingStatus && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.housingStatus.message}
-                  </p>
-                )}
-              </div>
+              <Select
+                id="housingStatus"
+                label="Housing Status"
+                placeholder="Select"
+                options={[
+                  { value: "rent", label: "Rent" },
+                  { value: "own", label: "Own" },
+                  { value: "with_family", label: "With Family" },
+                ]}
+                registration={register("housingStatus", {
+                  required: "Housing status is required",
+                })}
+                error={errors.housingStatus}
+                required
+              />
             </div>
             <div className="pt-4 text-center">
               <Button
