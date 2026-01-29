@@ -534,63 +534,54 @@ export default function AccountInfoSection({
         {currentPage === "three" && (
           <form onSubmit={handleSubmitStepThree(onSubmitThree)}>
             <div className="flex justify-between items-center w-full">
-              <h2 className="text-lg block">Review and Confirmation</h2>
+              <h3 className="text-lg font-semibold text-white mb-4">
+                Review and Confirmation
+              </h3>
             </div>
 
-            <section className="flex w-full flex-wrap">
-              <p className="w-1/3 pb-4 pt-4">
-                <strong>Name:</strong> {formData.stepOne?.firstName}{" "}
-                {formData.stepOne?.middleName} {formData.stepOne?.lastName}
-              </p>
-              <p className="w-1/3">
-                <strong>DOB:</strong> {formData.stepOne?.dateOfBirth}
-              </p>
-              <p className="w-1/3">
-                <strong>Email:</strong> {formData.stepOne?.emailAddress}
-              </p>
-              <p className="w-1/3">
-                <strong>Phone Number:</strong> {formData.stepOne?.phoneNumber}
-              </p>
-              <p className="w-1/3">
-                <strong>Monthly Income:</strong> $
-                {formData.stepOne?.monthlyIncome}
-              </p>
-              <p className="w-1/3">
-                <strong>Monthly Rent / Mortgage Payment:</strong> $
-                {formData.stepOne?.monthlyRent}
-              </p>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center mt-4">
-                  <input
-                    id="default-checkbox"
-                    type="checkbox"
-                    {...registerStepThree("privacyPolicy", {
-                      required: "You must accept the privacy policy",
-                    })}
-                    className="cursor-pointer w-4 h-4 text-blue-600 rounded-sm focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
-                  />
-                  <label
-                    htmlFor="privacyPolicy"
-                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    I've read the{" "}
-                    <button
-                      type="button"
-                      onClick={() => setIsModalOpen(true)}
-                      className="font-semibold cursor-pointer text-white hover:underline"
-                    >
-                      Privacy Policy
-                    </button>{" "}
-                    and consent to identity verification
-                  </label>
+            <div className="border border-gray-700 rounded-lg p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="flex justify-between md:block">
+                  <span className="text-gray-400">Name:</span>
+                  <span className="text-white md:block">
+                    {formData.stepOne?.firstName} {formData.stepOne?.middleName}{" "}
+                    {formData.stepOne?.lastName}
+                  </span>
                 </div>
-                {errorsStepThree.privacyPolicy && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorsStepThree.privacyPolicy.message}
-                  </p>
-                )}
+                <div className="flex justify-between md:block">
+                  <span className="text-gray-400">Date of Birth:</span>
+                  <span className="text-white md:block">
+                    {formData.stepOne?.dateOfBirth}
+                  </span>
+                </div>
+                <div className="flex justify-between md:block">
+                  <span className="text-gray-400">Email:</span>
+                  <span className="text-white md:block">
+                    {formData.stepOne?.emailAddress}
+                  </span>
+                </div>
+                <div className="flex justify-between md:block">
+                  <span className="text-gray-400">Phone:</span>
+                  <span className="text-white md:block">
+                    {formData.stepOne?.phoneNumber}
+                  </span>
+                </div>
+                <div className="flex justify-between md:block">
+                  <span className="text-gray-400">Address:</span>
+                  <span className="text-white md:block">
+                    {formData.stepOne?.street}, {formData.stepOne?.city},{" "}
+                    {formData.stepOne?.state} {formData.stepOne?.zipcode}
+                  </span>
+                </div>
+                <div className="flex justify-between md:block">
+                  <span className="text-gray-400">Monthly Income:</span>
+                  <span className="text-white md:block">
+                    ${formData.stepOne?.monthlyIncome}
+                  </span>
+                </div>
               </div>
-            </section>
+            </div>
+
             <div className="pt-4 text-center flex gap-4 justify-center">
               <Button
                 text="Back"
