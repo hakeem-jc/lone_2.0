@@ -22,15 +22,27 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div>
-      <label htmlFor={id} className="block mb-2 text-sm font-medium text-white">
-        {label}
+      <label
+        htmlFor={id}
+        className="grid grid-cols-[auto_1fr] gap-1.5 mb-1.5 font-semibold text-gray-400 antialiased"
+      >
+        <span>{label}</span>
+        {registration && <span className="text-gray-400">*</span>}
       </label>
       <input
         id={id}
         type={type}
         placeholder={placeholder}
         autoComplete={autoComplete}
-        className="bg-secondary border border-gray-600 text-white placeholder-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        className={`
+          w-full h-[54px] px-5 text-base
+          border rounded-none
+          bg-[#212121]
+          text-gray-400 placeholder:text-gray-500
+          font-normal antialiased
+          focus:outline-none focus:border-[#6c51f5]
+          ${error ? "border-red-500" : "border-[#bab8c6]"}
+        `}
         {...registration}
       />
       {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
