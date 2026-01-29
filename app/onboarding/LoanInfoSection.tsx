@@ -7,6 +7,7 @@ import Slider from "@/app/components/ui/Slider";
 import Input from "@/app/components/ui/Input";
 import Card from "@/app/components/ui/Card";
 import Modal from "@/app/components/ui/Modal";
+import DatePickerInput from "@/app/components/ui/DatePickerInput";
 import { getPaymentDates } from "@/app/utils/helper";
 
 type LoanFormValues = {
@@ -21,7 +22,6 @@ interface LoanInfoSectionProps {
 }
 
 export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
-
   const storedLoanInfo = useLoanStore((state) => state.loanInfo);
 
   const {
@@ -30,6 +30,7 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
     formState: { errors },
     setValue,
     watch,
+    control,
   } = useForm<LoanFormValues>({
     mode: "onBlur",
     defaultValues: storedLoanInfo || {
@@ -53,11 +54,12 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
   // Get first and last payment dates based on repayment date or today
   const { firstPayment, lastPayment } = getPaymentDates(
     repaymentDate ? new Date(repaymentDate) : undefined,
-    repaymentPeriod
+    repaymentPeriod,
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formDataToSubmit, setFormDataToSubmit] = useState<LoanFormValues | null>(null);
+  const [formDataToSubmit, setFormDataToSubmit] =
+    useState<LoanFormValues | null>(null);
 
   const onSubmit: SubmitHandler<LoanFormValues> = (data) => {
     console.log("Loan form data:", data);
@@ -90,24 +92,22 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
               onChange={(value) => setValue("loanAmount", value)}
             />
 
-            <Input
-              id="repaymentDate"
+            <DatePickerInput
+              name="repaymentDate"
+              control={control}
               label="Repayment Date"
-              type="date"
-              registration={register("repaymentDate", {
-                required: "Repayment Date is required",
-              })}
               error={errors.repaymentDate}
+              required
             />
 
             <Input
-                id="repaymentPeriod"
-                label="Number of Payments (Months)"
-                type="number"
-                placeholder="5"
-                registration={register("repaymentPeriod")}
-                error={errors.repaymentPeriod}
-              />
+              id="repaymentPeriod"
+              label="Number of Payments (Months)"
+              type="number"
+              placeholder="5"
+              registration={register("repaymentPeriod")}
+              error={errors.repaymentPeriod}
+            />
           </div>
         </div>
 
@@ -162,9 +162,9 @@ export default function LoanInfoSection({ onContinue }: LoanInfoSectionProps) {
         <>
           <p className="leading-relaxed text-gray-300">
             You have selected {firstPayment} as your first loan payment date.
-            All other payments will be collected on the same day of each month. This
-            date is fixed for the life of the loan and will not be adjustable
-            after you have completed the acceptance of this loan.
+            All other payments will be collected on the same day of each month.
+            This date is fixed for the life of the loan and will not be
+            adjustable after you have completed the acceptance of this loan.
           </p>
           <p className="leading-relaxed text-gray-300">
             Please ensure that the repayment date you have selected coincides
