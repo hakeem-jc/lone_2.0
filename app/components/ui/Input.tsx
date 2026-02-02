@@ -36,12 +36,12 @@ const Input: React.FC<InputProps> = ({
         autoComplete={autoComplete}
         className={`
           w-full h-[54px] px-5 text-base
-          border rounded-none
+          border rounded-[4px]
           bg-[#212121]
-          text-gray-400 placeholder:text-gray-500
+          text-white border-gray-400 placeholder:text-gray-500
           font-normal antialiased
-          focus:outline-none focus:border-[#6c51f5]
-          ${error ? "border-red-500" : "border-[#bab8c6]"}
+          focus:outline-none focus:border-[#1976d2]
+          ${error ? "border-red-500" : "border-grey"}
         `}
         {...registration}
       />

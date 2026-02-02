@@ -41,9 +41,9 @@ const Select: React.FC<SelectProps> = ({
             w-full h-[54px] px-5 text-base
             border rounded-none
             bg-[#212121]
-            text-gray-400
+            text-color
             font-normal antialiased
-            focus:outline-none focus:border-[#6c51f5]
+            focus:outline-none focus:border-blue-600
             appearance-none
             cursor-pointer
             pr-12
@@ -51,11 +51,11 @@ const Select: React.FC<SelectProps> = ({
           `}
           {...registration}
         >
-          <option value="" className="text-gray-500">
+          <option value="" className="text-white">
             {placeholder}
           </option>
           {options.map((option) => (
-            <option key={option.value} value={option.value} className="text-gray-400">
+            <option key={option.value} value={option.value} className="text-white">
               {option.label}
             </option>
           ))}
