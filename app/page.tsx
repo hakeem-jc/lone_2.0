@@ -21,42 +21,42 @@ const items: SectionItem[] = [
     title: "Apply in Minutes",
     description:
       "Our streamlined application process takes just a few taps. No paperwork, no waiting in lines.",
-    imageUrl: "/placeholder.jpg",
+    imageUrl: "/homepage-1.jpg",
   },
   {
     id: 2,
     title: "Instant Decision",
     description:
       "Our advanced AI evaluates your application in real-time, providing an immediate lending decision.",
-    imageUrl: "/placeholder.jpg",
+    imageUrl: "/homepage-2.jpg",
   },
   {
     id: 3,
     title: "Fast Funding",
     description:
       "Once approved, get up to $5,000 deposited directly into your bank account within minutes.",
-    imageUrl: "/placeholder.jpg",
+    imageUrl: "/homepage-3.jpg",
   },
   {
     id: 4,
     title: "Flexible Repayment",
     description:
       "Choose a repayment term that works for you, from 1 to 3 months.",
-    imageUrl: "/placeholder.jpg",
+    imageUrl: "/homepage-4.jpg",
   },
   {
     id: 5,
     title: "Transparent Pricing",
     description:
       "We believe in full disclosure. Our competitive rates are clearly displayed, and we never charge hidden fees.",
-    imageUrl: "/placeholder.jpg",
+    imageUrl: "/homepage-5.jpg",
   },
   {
     id: 6,
     title: "Secure and Confidential",
     description:
       "Your financial data is protected with bank-level encryption, ensuring your privacy and security.",
-    imageUrl: "/placeholder.jpg",
+    imageUrl: "/homepage-6.jpg",
   },
 ];
 
