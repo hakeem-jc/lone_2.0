@@ -37,10 +37,9 @@ const Input: React.FC<InputProps> = ({
         className={`
           w-full h-[54px] px-5 text-base
           border rounded-[4px]
-          bg-[#212121]
-          text-white border-gray-400 placeholder:text-gray-500
+          text-white border-gray-600 placeholder:text-gray-500
           font-normal antialiased
-          focus:outline-none focus:border-[#1976d2]
+          focus:outline-none focus:border-[#1976d2] focus:border-2
           ${error ? "border-red-500" : "border-grey"}
         `}
         {...registration}
