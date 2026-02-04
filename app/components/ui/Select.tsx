@@ -40,7 +40,8 @@ const Select: React.FC<SelectProps> = ({
           className={`
             w-full h-[54px] px-5 text-base
             border rounded-none
-            bg-[#212121]
+            bg-[#181818]
+            border-gray-600
             text-color
             font-normal antialiased
             focus:outline-none focus:border-blue-600
