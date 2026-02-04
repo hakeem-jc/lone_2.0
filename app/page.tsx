@@ -106,10 +106,10 @@ export default function Home() {
           id="info-section"
           className="flex flex-col items-center gap-12 bg-secondary rounded-4xl mt-8 scroll-mt-20"
         >
-          <h1 className="text-3xl text-center mt-16">
+          <h1 className="text-2xl md:text-3xl text-center mt-16">
             Your Next Pay Day Is Today
           </h1>
-          <p className="text-center">Here's How it Works</p>
+          <p className="text-center text-xl">Here's How it Works</p>
 
           <section className="bg-secondary max-w-6xl  flex flex-col gap-16 px-6">
             {items.map((item, index) => {
@@ -163,7 +163,7 @@ export default function Home() {
           className="flex flex-col items-center justify-center px-4 py-30"
         >
           <div className="flex flex-col gap-12 items-center text-center max-w-2xl">
-            <h1 className="text-4xl">Take a Sneak Peak at Our Rates</h1>
+            <h1 className="text-2xl px-2 md:text-3xl md:px-0">Take a Sneak Peak at Our Rates</h1>
             <div className="w-8/12">
               <Slider value={loanAmount} onChange={setLoanAmount} />
             </div>
