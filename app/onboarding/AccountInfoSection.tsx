@@ -288,10 +288,10 @@ export default function AccountInfoSection({
       <section className="w-full p-8">
         {currentPage === "one" && (
           <form onSubmit={handleSubmit(onSubmitOne)}>
-            <div className="flex justify-between items-center w-full">
+            <div className="flex justify-between items-center w-full mb-6">
               <h2 className="text-lg block">Personal Info</h2>
 
-              <label className="inline-flex items-center mb-5 cursor-pointer">
+              <label className="inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   className="sr-only peer"
@@ -448,12 +448,20 @@ export default function AccountInfoSection({
 
         {currentPage === "two" && (
           <form onSubmit={handleSubmitStepTwo(onSubmitTwo)}>
-            <div className="flex justify-between items-center w-full mb-4">
+            <div className="flex justify-between items-center w-full mb-6">
               <h2 className="text-lg block">
-                Identity Verification / Know Your Customer
+                <abbr
+                  title="Identity Verification / Know Your Customer"
+                  className="sm:hidden no-underline"
+                >
+                  KYC
+                </abbr>
+                <span className="hidden sm:inline">
+                  Identity Verification / Know Your Customer
+                </span>
               </h2>
 
-              <label className="inline-flex items-center mb-5 cursor-pointer">
+              <label className="inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   className="sr-only peer"
@@ -534,7 +542,7 @@ export default function AccountInfoSection({
         {currentPage === "three" && (
           <form onSubmit={handleSubmitStepThree(onSubmitThree)}>
             <div className="flex justify-between items-center w-full">
-              <h3 className="text-lg font-semibold text-white mb-4">
+              <h3 className="text-lg font-semibold text-white mb-6">
                 Review and Confirmation
               </h3>
             </div>
